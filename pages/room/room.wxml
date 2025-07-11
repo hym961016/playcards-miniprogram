@@ -1,0 +1,166 @@
+<!--pages/room/room.wxml-->
+<view>
+
+  <!-- 房间用户列表 -->
+  <view class="flex bg-white" style="overflow-x: auto; border-bottom: 2rpx solid #82e968;">
+    <view class="flex-sub flex justify-center padding-tb-sm">
+      <view class="flex flex-column align-center margin-lr-sm" wx:for="{{players}}" wx:key="index" wx:for-item="player" bind:tap="openPayDialog">
+        <view class="cu-avatar round xl margin-bottom-xs bg-gray" style="{{player.avatar?'background-image:url('+player.avatar+');':''}}">
+          <text wx:if="{{!player.avatar}}" class="iconfont icon-wutouxiang text-gray"></text>
+        </view>
+        <view class="text-sm">{{player.nickname}}</view>
+        <view class="text-orange text-bold">{{player.score}}</view>
+      </view>
+      <view class="flex flex-column align-center margin-lr-sm">
+        <view class="cu-avatar round xl margin-bottom-xs bg-gray">
+          <text class="iconfont icon-cha text-gray"></text>
+        </view>
+        <view class="text-sm">茶/饭</view>
+        <view class="text-orange text-bold">30</view>
+      </view>
+      <view class="flex flex-column align-center margin-lr-sm">
+        <view class="cu-avatar round xl margin-bottom-xs bg-gray" bind:tap="openAddFriendDialog">
+          <text class="cuIcon-friendadd text-gray"></text>
+        </view>
+        <view class="text-sm">添加好友</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 提示框 -->
+  <view class="bg-green light">
+    <view class='padding-xs text-lg'>
+      <text class='cuIcon-magic text-orange'></text>
+      <text class="text-sm"> 点击好友头像可直接支出;点击自己头像可改头像昵称 </text>
+    </view>
+  </view>
+
+  <!-- 操作消息内容框 -->
+  <scroll-view scroll-y class="message-wrapper">
+
+    <view class="cu-chat">
+      <block wx:for="{{msgList}}" wx:key="index">
+        <view wx:if="{{item.type === 1}}" class="cu-info" >{{item.data.nickname}} 加入了房间</view>
+        <view wx:if="{{item.type === 2}}" class="cu-item bg-white">
+        <view><text class="text-bold">我</text> 向 <text class="text-bold">微信用户678</text> 支出分数</view>
+        <text class="text-orange text-bold">20</text>
+      </view>
+      </block>
+      
+      
+      <!-- <view class="cu-info">微信用户679 加入了房间</view>
+      <view class="cu-item bg-white">
+        <view><text class="text-bold">我</text> 向 <text class="text-bold">微信用户678</text> 支出分数</view>
+        <text class="text-orange text-bold">20</text>
+      </view>
+      <view class="cu-item bg-white">
+        <view><text class="text-bold">我</text> 向 <text class="text-bold">微信用户678</text> 支出分数</view>
+        <text class="text-orange text-bold">20</text>
+      </view>
+      <view class="cu-item bg-white">
+        <view><text class="text-bold">我</text> 向 <text class="text-bold">微信用户678</text> 支出分数</view>
+        <text class="text-orange text-bold">20</text>
+      </view>
+      <view class="cu-item bg-white">
+        <view><text class="text-bold">微信用户549</text> 向 <text class="text-bold">微信用户678</text> 支出分数</view>
+        <text class="text-orange text-bold">20</text>
+      </view>
+      <view class="cu-item bg-white">
+        <view><text class="text-bold">微信用户549</text> 向 <text class="text-bold">微信用户678</text> 支出分数</view>
+        <text class="text-orange text-bold">20</text>
+      </view>
+      <view class="cu-item bg-white">
+        <view><text class="text-bold">微信用户549</text> 向 <text class="text-bold">微信用户678</text> 支出分数</view>
+        <text class="text-orange text-bold">20</text>
+      </view>
+      <view class="cu-item bg-white">
+        <view><text class="text-bold">微信用户549</text> 向 <text class="text-bold">微信用户678</text> 支出分数</view>
+        <text class="text-orange text-bold">20</text>
+      </view>
+      <view class="cu-item bg-white">
+        <view><text class="text-bold">微信用户549</text> 向 <text class="text-bold">微信用户678</text> 支出分数</view>
+        <text class="text-orange text-bold">20</text>
+      </view>
+      <view class="cu-item bg-white">
+        <view><text class="text-bold">微信用户549</text> 向 <text class="text-bold">微信用户678</text> 支出分数</view>
+        <text class="text-orange text-bold">20</text>
+      </view>
+      <view class="cu-item bg-white">
+        <view><text class="text-bold">微信用户549</text> 向 <text class="text-bold">微信用户678</text> 支出分数</view>
+        <text class="text-orange text-bold">20</text>
+      </view>
+      <view class="cu-item bg-white">
+        <view><text class="text-bold">微信用户549</text> 向 <text class="text-bold">微信用户678</text> 支出分数</view>
+        <text class="text-orange text-bold">20</text>
+      </view>
+      <view class="cu-item bg-white">
+        <view><text class="text-bold">微信用户549</text> 向 <text class="text-bold">微信用户678</text> 支出分数</view>
+        <text class="text-orange text-bold">20</text>
+      </view> -->
+    </view>
+  </scroll-view>
+
+  <!-- 底部操作按钮 -->
+  <view class="fix-bottom-btn solid-top">
+    <view class="cu-bar">
+      <view class="action flex-sub text-green" bind:tap="toPayView">
+        <view class="text-bold text-lg"><text class="iconfont icon-zhichu padding-right-xs"></text>支出</view>
+      </view>
+      <view class="action flex-sub solid-left text-red" bind:tap="toSettlementView">
+        <view class="text-bold text-lg text-orange"><text class="iconfont icon-jiesuan padding-right-xs"></text>结算</view>
+      </view>
+      <view class="action flex-sub solid-left text-gray" bind:tap="exitRoom">
+        <view class="text-bold text-lg"><text class="iconfont icon-tuichu padding-right-xs"></text>退出</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 添加好友弹窗 -->
+  <view class="cu-modal {{showAddFriendDialog?'show':''}}">
+    <view class="cu-dialog">
+      <view class="cu-bar bg-white justify-end">
+        <view class="content">微信扫描二维码加入</view>
+        <view class="action" bindtap="closeAddFriendDialog">
+          <text class="cuIcon-close text-red"></text>
+        </view>
+      </view>
+      <view class="padding-xl bg-white">
+
+      </view>
+      <view class="cu-bar bg-white justify-center">
+        <view class="action">
+          <button class="cu-btn line-green text-green" bindtap="hideModal">取消</button>
+          <button class="cu-btn bg-green margin-left" bindtap="hideModal">确定</button>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 支出分数弹窗 -->
+  <view class="cu-modal {{showPayDialog?'show':''}}">
+    <view class="cu-dialog">
+      <view class="close-action" bindtap="closePayDialog">
+        <text class="cuIcon-close text-red"></text>
+      </view>
+      <view class="padding-sm bg-white">
+        <view class="flex flex-column align-center margin-top-lg">
+          <view class="cu-avatar round xl margin-bottom-xs" style="background-image:url(https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0);">
+          </view>
+          <view class="text-df padding-tb-sm">向 <text class="text-bold">微信用户678</text> 支出</view>
+        </view>
+        <view class="input-wrapper">
+          <input type="number" placeholder-class="input-plc" adjust-position="{{true}}"></input>
+        </view>
+      </view>
+      <view class="cu-bar bg-white">
+        <view class="action margin-0 flex-sub" bind:tap="closePayDialog">
+          <text>取消</text>
+        </view>
+        <view class="action margin-0 flex-sub solid-left text-green">
+          <text>确认</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+</view>

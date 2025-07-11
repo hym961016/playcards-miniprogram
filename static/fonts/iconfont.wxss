@@ -1,0 +1,45 @@
+/* 在线链接服务仅供平台体验和调试使用，平台不承诺服务的稳定性，企业客户需下载字体包自行发布使用并做好备份。 */
+@font-face {
+  font-family: 'iconfont';
+  /* Project id 4787965 */
+  src: url('//at.alicdn.com/t/c/font_4787965_0tj2jynlw82.woff2?t=1735095279961') format('woff2'),
+    url('//at.alicdn.com/t/c/font_4787965_0tj2jynlw82.woff?t=1735095279961') format('woff'),
+    url('//at.alicdn.com/t/c/font_4787965_0tj2jynlw82.ttf?t=1735095279961') format('truetype');
+}
+
+/* 在线链接服务仅供平台体验和调试使用，平台不承诺服务的稳定性，企业客户需下载字体包自行发布使用并做好备份。 */
+@font-face {
+  font-family: "阿里妈妈刀隶体 Regular";
+  font-weight: 400;
+  src: url("//at.alicdn.com/wf/webfont/MKAwKUOgK56M/saNVVAILqfCI.woff2") format("woff2"),
+    url("//at.alicdn.com/wf/webfont/MKAwKUOgK56M/5MjGGBJtzSzc.woff") format("woff");
+  font-display: swap;
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: inherit;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-cha:before {
+  content: "\e601";
+}
+
+.icon-wutouxiang:before {
+  content: "\e63c";
+}
+
+.icon-jiesuan:before {
+  content: "\e622";
+}
+
+.icon-zhichu:before {
+  content: "\e670";
+}
+
+.icon-tuichu:before {
+  content: "\e666";
+}

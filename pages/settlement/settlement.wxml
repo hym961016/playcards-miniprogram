@@ -1,0 +1,109 @@
+<!--pages/settlement/settlement.wxml-->
+<view>
+  <!-- 结算结果信息 -->
+  <view class="result-info solids-bottom">
+    <view class="result text-xxxl">战斗胜利</view>
+    <view class="amount">
+      <text class="text-xxl text-bold text-orange">总计:100</text>
+      <text class="text-bold">未结(0)</text>
+    </view>
+    <view class="result-tip">获得 大神 称号，今晚你买单！</view>
+  </view>
+
+  <!-- 结算流水列表 -->
+  <view class="nav">
+    <view class="flex text-center bg-white">
+      <view class="cu-item flex-sub {{index==tabCur?'text-orange cur':''}}" wx:for="{{tabs}}" wx:key="index" bindtap="tabSelect" data-id="{{index}}">
+        {{item.title}}
+      </view>
+    </view>
+    <scroll-view scroll-y class="tab-list {{index==tabCur?'show':''}}" wx:for="{{tabs}}" wx:key="index">
+      <view class="cu-chat">
+        <view class="cu-item bg-white">
+          <view class="detail">
+            <view><text class="text-bold">我</text> 向 <text class="text-bold">微信用户678</text> 支出分数</view>
+            <text class="text-orange text-bold">20</text>
+          </view>
+          <view class="tips">
+            <view class="time">11:20</view>
+            <view class="status">未结</view>
+          </view>
+        </view>
+        <view class="cu-item bg-white">
+          <view class="detail">
+            <view><text class="text-bold">我</text> 向 <text class="text-bold">微信用户678</text> 支出分数</view>
+            <text class="text-orange text-bold">20</text>
+          </view>
+          <view class="tips">
+            <view class="time">11:20</view>
+            <view class="status">未结</view>
+          </view>
+        </view>
+        <view class="cu-item bg-white">
+          <view class="detail">
+            <view><text class="text-bold">我</text> 向 <text class="text-bold">微信用户678</text> 支出分数</view>
+            <text class="text-orange text-bold">20</text>
+          </view>
+          <view class="tips">
+            <view class="time">11:20</view>
+            <view class="status">未结</view>
+          </view>
+        </view>
+        <view class="cu-item bg-white">
+          <view class="detail">
+            <view><text class="text-bold">我</text> 向 <text class="text-bold">微信用户678</text> 支出分数</view>
+            <text class="text-orange text-bold">20</text>
+          </view>
+          <view class="tips">
+            <view class="time">11:20</view>
+            <view class="status">未结</view>
+          </view>
+        </view>
+        <view class="cu-item bg-white">
+          <view class="detail">
+            <view><text class="text-bold">我</text> 向 <text class="text-bold">微信用户678</text> 支出分数</view>
+            <text class="text-orange text-bold">20</text>
+          </view>
+          <view class="tips">
+            <view class="time">11:20</view>
+            <view class="status">未结</view>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 结算底部操作 -->
+  <view class="bottom-btn bg-white solids-top">
+    <view class="flex margin-lr-lg">
+      <button class="flex-sub cu-btn bg-red lg" bind:tap="openSettleDialog">生成我的结算方案</button>
+    </view>
+    <view class="flex margin-lr-lg padding-tb">
+      <button class="flex-sub cu-btn line-red lg margin-right" bind:tap="toStatementView">房间结算单</button>
+      <button class="flex-sub cu-btn line-red lg" bind:tap="toRankView">排行榜</button>
+    </view>
+  </view>
+
+  <!-- 结算窗口 -->
+  <view class="cu-modal {{showSettleDialog?'show':''}}">
+    <view class="cu-dialog">
+      <view class="cu-bar bg-white justify-end">
+        <view class="content">Modal标题</view>
+        <view class="action" bindtap="closeSettleDialog">
+          <text class="cuIcon-close text-red"></text>
+        </view>
+      </view>
+      <view class="padding-xl">
+        Modal 内容。
+      </view>
+      <view class="cu-bar bg-white justify-end">
+        <view class="action">
+          <button class="cu-btn line-green text-green" bindtap="hideModal">取消</button>
+          <button class="cu-btn bg-green margin-left" bindtap="hideModal">确定</button>
+
+        </view>
+      </view>
+    </view>
+  </view>
+
+</view>

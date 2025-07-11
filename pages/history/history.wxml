@@ -1,0 +1,57 @@
+<!--pages/history/history.wxml-->
+<view>
+  <view class="history-header">
+    <view class="cu-avatar round xl" style="background-image:url(https://image.meiye.art/pic_1628404025424);"></view>
+    <view class="detail">
+      <view class="flex-sub flex justify-between align-center text-lg">
+        <view>微信用户678</view>
+        <view class="text-bold text-green">-674</view>
+      </view>
+      <view class="flex-sub flex justify-between align-center text-gray">
+        <view>赢：2</view>
+        <view>输：2</view>
+        <view>胜率：50%</view>
+      </view>
+    </view>
+  </view>
+  <scroll-view class="history-list" scroll-y>
+    <view class="history-container">
+
+      <view class="history-item">
+        <view class="info">
+          <view class="room">房间号：18ih</view>
+          <view class="type bg-orange">赢</view>
+          <view class="amount">666</view>
+        </view>
+        <view class="date">
+          <view class="text-sm">12-25 14:20</view>
+          <view class="cu-tag radius bg-red sm">未结算</view>
+        </view>
+      </view>
+
+      <view class="history-item">
+        <view class="info">
+          <view class="room">房间号：uudn</view>
+          <view class="type bg-orange">赢</view>
+          <view class="amount">666</view>
+        </view>
+        <view class="date">
+          <view class="text-sm">12-25 14:20</view>
+          <view class="cu-tag radius bg-orange sm">部分未结算</view>
+        </view>
+      </view>
+
+      <view class="history-item">
+        <view class="info">
+          <view class="room">房间号：uudn</view>
+          <view class="type bg-green">输</view>
+          <view class="amount">666</view>
+        </view>
+        <view class="date">
+          <view class="text-sm">12-25 14:20</view>
+          <view class="cu-tag radius bg-green sm">已全部结算</view>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+</view>

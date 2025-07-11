@@ -1,0 +1,7 @@
+page {
+  background-color: var(--white);
+}
+
+.cu-btn.lg {
+  height: 88rpx;
+}

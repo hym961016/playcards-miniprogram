@@ -1,0 +1,38 @@
+/* pages/pay/pay.wxss */
+
+.cu-form-group .user {
+  display: flex;
+  align-items: center;
+  flex-basis: 264rpx;
+  font-size: 30rpx;
+}
+
+.cu-form-group .user .nickname {
+  margin: 0 20rpx;
+  width: 200rpx;
+  justify-content: flex-start;
+  white-space: nowrap; /* 禁止文字换行 */
+  overflow: hidden; /* 隐藏超出容器的文字 */
+  text-overflow: ellipsis; /* 使用省略号表示被隐藏的文字 */
+}
+
+.cu-form-group .input-wrapper {
+  border: 2rpx solid #cccccc;
+  border-radius: 8rpx;
+  height: 68rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.cu-form-group .input-wrapper input {
+  width: 100%;
+  height: 100%;
+  padding: 0 30rpx;
+  font-weight: bold;
+  color: var(--orange);
+  text-align: center;
+}
+
+

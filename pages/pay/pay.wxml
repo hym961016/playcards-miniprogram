@@ -1,0 +1,81 @@
+<!--pages/pay/pay.wxml-->
+<view>
+  <view class="cu-bar bg-white">
+    <view class="action">
+      <text class="cuIcon-titles text-orange"></text>
+      <text class="text-bold">请输入您需要支出的分数</text>
+    </view>
+  </view>
+
+  <view class="cu-form-group">
+    <view class="user">
+      <view class="cu-avatar round" style="background-image:url(https://image.meiye.art/pic_1628404025424);"></view>
+      <view class="nickname">
+        微信用户798大厦大厦大厦
+      </view>
+    </view>
+    <view class="input-wrapper">
+      <input type="number"></input>
+    </view>
+  </view>
+
+  <view class="cu-form-group">
+    <view class="user">
+      <view class="cu-avatar round" style="background-image:url(https://image.meiye.art/pic_1628404025424);"></view>
+      <view class="nickname">
+        微信用户798大厦大厦大厦
+      </view>
+    </view>
+    <view class="input-wrapper">
+      <input type="number"></input>
+    </view>
+  </view>
+
+  <view class="cu-form-group">
+    <view class="user">
+      <view class="cu-avatar round" style="background-image:url(https://image.meiye.art/pic_1628404025424);"></view>
+      <view class="nickname">
+        微信用户798大厦大厦大厦
+      </view>
+    </view>
+    <view class="input-wrapper">
+      <input type="number" placeholder-class="price-input"></input>
+    </view>
+  </view>
+
+  <view class="cu-form-group">
+    <view class="user">
+      <view class="cu-avatar round" style="background-image:url(https://image.meiye.art/pic_1628404025424);"></view>
+      <view class="nickname">
+        微信用户798大厦大厦大厦
+      </view>
+    </view>
+    <view class="input-wrapper">
+      <input type="number"></input>
+    </view>
+  </view>
+
+  <view class="cu-bar bg-white">
+    <view class="action">
+      <text class="cuIcon-titles text-orange"></text>
+      <text class="text-bold">请输入您需要支出的茶/饭</text>
+    </view>
+  </view>
+
+  <view class="cu-form-group">
+    <view class="user">
+      <view class="cu-avatar round" style="background-image:url(https://image.meiye.art/pic_1628404025424);"></view>
+      <view class="nickname">
+        茶/饭
+      </view>
+    </view>
+    <view class="input-wrapper">
+      <input type="number" placeholder="赢的一方操作"></input>
+    </view>
+  </view>
+
+  <view class="flex padding">
+    <button class="flex-sub cu-btn bg-orange lg">支出</button>
+  </view>
+
+</view>

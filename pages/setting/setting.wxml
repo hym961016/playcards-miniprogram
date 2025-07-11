@@ -1,0 +1,18 @@
+<!--pages/setting/setting.wxml-->
+<scroll-view class="scrollarea" scroll-y type="list">
+  <view class="container">
+    <view class="userinfo">
+      <button class="avatar-wrapper" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
+        <image class="avatar" src="{{userInfo.avatar}}"></image>
+      </button>
+      <view class="nickname-wrapper">
+        <text class="nickname-label">昵称</text>
+        <input type="nickname" class="nickname-input" placeholder="请输入昵称" value="{{userInfo.nickName}}" bind:change="onInputChange" />
+      </view>
+    </view>
+    <view class="btn">
+      <button class="cu-btn lg bg-white" bind:tap="cancel">取消</button>
+      <button class="cu-btn lg bg-orange" bind:tap="confirm">确认</button>
+    </view>
+  </view>
+</scroll-view>

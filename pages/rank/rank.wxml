@@ -1,0 +1,56 @@
+<!--pages/rank/rank.wxml-->
+<view>
+  <view class="title">
+    <image src="../../static/images/排行榜.png" mode="widthFix" />
+    <view>排行榜</view>
+  </view>
+  <view class="content">
+    <view class="rank-item">
+      <image src="../../static/images/ranking-1.png" mode="widthFix"></image>
+      <view class="detail">
+        <view class="userinfo">
+          <view class="cu-avatar round sm margin-lr-xs" style="background-image:url(https://image.meiye.art/pic_1628404025424);"></view>
+          <view>微信用户765</view>
+        </view>
+        <view class="amount text-orange">+100000</view>
+      </view>
+    </view>
+
+    <view class="rank-item">
+      <image src="../../static/images/ranking-1.png" mode="widthFix"></image>
+      <view class="detail">
+        <view class="userinfo">
+          <view class="cu-avatar round sm margin-lr-xs" style="background-image:url(https://image.meiye.art/pic_1628404025424);"></view>
+          <view>微信用户765</view>
+        </view>
+        <view class="amount text-orange">+100000</view>
+      </view>
+    </view>
+
+    <view class="rank-item">
+      <image src="../../static/images/ranking-1.png" mode="widthFix"></image>
+      <view class="detail">
+        <view class="userinfo">
+          <view class="cu-avatar round sm margin-lr-xs" style="background-image:url(https://image.meiye.art/pic_1628404025424);"></view>
+          <view>微信用户765</view>
+        </view>
+        <view class="amount text-orange">+100000</view>
+      </view>
+    </view>
+
+    <view class="rank-item">
+      <image src="../../static/images/ranking-1.png" mode="widthFix"></image>
+      <view class="detail">
+        <view class="userinfo">
+          <view class="cu-avatar round sm margin-lr-xs" style="background-image:url(https://image.meiye.art/pic_1628404025424);"></view>
+          <view>微信用户765</view>
+        </view>
+        <view class="amount text-orange">+100000</view>
+      </view>
+    </view>
+
+    <view class="flex padding">
+      <button class="flex-sub cu-btn bg-red lg">返回房间</button>
+    </view>
+  </view>
+</view>

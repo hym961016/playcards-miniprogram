@@ -1,0 +1,36 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="flex flex-column">
+    <view class="flex flex-column align-center padding-xl">
+      <image class="cu-avatar round xl" src="{{userInfo.avatar}}"></image>
+      <view class="margin-xs text-xl">{{userInfo.nickname}}</view>
+    </view>
+    <view class="flex padding-bottom-xl solids-bottom">
+      <view class="flex-sub text-center">
+        <view class="text-xl text-bold padding-xs">100</view>
+        <view>积分</view>
+      </view>
+      <view class="flex-sub text-center">
+        <view class="text-xl text-bold padding-xs">12</view>
+        <view class="text-underline">局数</view>
+      </view>
+      <view class="flex-sub text-center">
+        <view class="text-xl text-bold text-percentage padding-xs">20</view>
+        <view>胜率</view>
+      </view>
+      <view class="flex-sub text-center">
+        <view class="text-xl text-bold padding-xs">7</view>
+        <view class="text-underline">排名</view>
+      </view>
+    </view>
+  </view>
+  <view class="flex padding-xl">
+    <button class="flex-sub margin-xs cu-btn lg bg-orange" bind:tap="getRoom">我要开房</button>
+    <button class="flex-sub margin-xs cu-btn lg line-orange">扫码进房</button>
+  </view>
+  <view class="flex justify-center">
+    <view class="padding-xs text-sm text-gray">联系客服</view>
+    <view class="padding-xs text-sm text-gray" bind:tap="toUpdateUserInfoView">修改头像昵称</view>
+    <view class="padding-xs text-sm text-gray">使用手册</view>
+  </view>
+</view>

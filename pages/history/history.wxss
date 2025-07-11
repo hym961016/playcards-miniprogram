@@ -1,0 +1,61 @@
+/* pages/history/history.wxss */
+.history-header {
+  background-color: var(--white);
+  display: flex;
+  padding: 30rpx;
+  border-bottom: 4rpx solid rgba(0, 0, 0, 0.1);
+}
+
+.history-header .cu-avatar {
+  width: 125rpx;
+  height: 125rpx;
+}
+
+.history-header .detail {
+  margin-left: 30rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
+}
+
+.history-list {
+  height: calc(100vh - 188rpx);
+}
+
+.history-item {
+  background-color: var(--white);
+  padding: 20rpx 30rpx;
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1rpx solid rgba(0, 0, 0, 0.1);
+}
+
+.history-item .info {
+  display: flex;
+  align-items: center;
+}
+
+.history-item .info .room {
+  flex: 1;
+}
+
+.history-item .info .type {
+  width: 40rpx;
+  height: 40rpx;
+  text-align: center;
+  line-height: 40rpx;
+}
+
+.history-item .info .amount {
+  font-weight: bold;
+  flex: 1;
+  text-align: right;
+}
+
+.history-item .date {
+  margin-top: 25rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
