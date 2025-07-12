@@ -1,5 +1,8 @@
 // pages/room/room.js
 import { exitRoom } from "../../api/game";
+
+const app = getApp();
+
 Page({
   /**
    * 页面的初始数据
@@ -21,40 +24,15 @@ Page({
   onLoad(options) {
     const roomNo = decodeURIComponent(options.roomNo);
     console.log(roomNo);
-
-    const token = wx.getStorageSync("token");
-
-    const ws = wx.connectSocket({
-      url: `ws://localhost:8080/api/v1/game/joinRoom?roomNo=${roomNo}`,
-      header: {
-        Authorization: token ? `Bearer ${token}` : "",
-      },
-      success: (res) => {
+    app.starx.on("onMessage", this.onMessage);
+    app.starx.on("onPlayerEnter", this.onPlayerEnter);
+    app.starx.request("room.ClientInitCompleted", (res) => {
         console.log(res);
-      },
-      fail: (err) => {
-        console.log(err);
-      },
     });
-
-    ws.onOpen((res) => {
-      console.log(res);
-    });
-
-    ws.onClose((res) => {
-      console.log(res, "scoket_one关闭");
-    });
-
-    ws.onMessage((res) => {
-      console.log(res);
-      const msg = JSON.parse(res.data);
-      this.addMsg(msg);
-      if (msg.type === 1) {
-        this.addPlayer(msg.data);
-      } else if (msg.type === 4) {
-        this.syncState(msg.data);
-      }
-    });
+  },
+  onMessage() {},
+  onPlayerEnter() {
+    console.log("player enter");
   },
   openAddFriendDialog(e) {
     this.setData({

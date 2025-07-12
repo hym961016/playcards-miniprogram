@@ -7,36 +7,45 @@ const app = getApp();
 Page({
   data: {
     userInfo: {
-      id: undefined,
       nickname: "",
       avatar: "",
     },
   },
   onLoad() {
-    getUserInfo().then((res) => {
+    this.getUserInfo();
+  },
+  onShow() {
+    if (app.globalData.userInfo) {
       this.setData({
-        userInfo: res,
+        userInfo: app.globalData.userInfo,
+      });
+    }
+  },
+  getUserInfo() {
+    console.log("getUserInfo");
+    if (app.globalData.userInfo) {
+      this.setData({
+        userInfo: app.globalData.userInfo,
+      });
+    } else {
+      getUserInfo().then((res) => {
+        this.setData({
+          userInfo: res,
+        });
+        console.log(res);
+        app.globalData.userInfo = res;
+      });
+    }
+  },
+  // 开房
+  openRoom() {
+    app.starx.request("room.CreateRoom", (res) => {
+      console.log(res);
+      wx.redirectTo({
+        url: "../room/room?roomNo=" + res.roomNo,
       });
     });
   },
-  onShow() {
-    // if (app.globalData.isCreateRoom) {
-    //   console.log("create room");
-    //   this.createRoomAction();
-    //   app.globalData.isCreateRoom = false;
-    // }
-    // isInRoom().then((res) => {
-    //   console.log(res);
-    //   if (res.statusCode === 0) {
-    //     if (res.isInRoom) {
-    //       wx.redirectTo({
-    //         url: "../room/room?roomNo=" + res.roomNo,
-    //       });
-    //     }
-    //   }
-    // });
-  },
-  getUserInfo() {},
   getRoom(e) {
     wx.navigateTo({
       url: "../setting/setting?from=getRoom",

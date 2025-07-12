@@ -1,51 +1,49 @@
 // pages/setting/setting.js
-import { updateUserInfo } from "../../api/user";
+import { updateAvatarNickname } from "../../api/user";
 
-const defaultAvatarUrl = 'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0'
+const defaultAvatarUrl = "https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0";
 const app = getApp();
 
 Page({
-
   data: {
-    userInfo: {
-      nickName: "",
-      avatar: defaultAvatarUrl
-    }
+    nickname: "",
+    avatar: defaultAvatarUrl,
   },
-
-  onLoad(options) {
-    const userInfo = wx.getStorageSync("userInfo")
-    if (userInfo) {
+  onLoad() {
+    this.getUserInfo();
+  },
+  getUserInfo() {
+    if (app.globalData.userInfo) {
+      const { nickname, avatar } = app.globalData.userInfo;
       this.setData({
-        userInfo: userInfo
-      })
+        nickname,
+        avatar,
+      });
     }
   },
   onChooseAvatar(e) {
-    console.log(e);
-    const { avatarUrl } = e.detail 
+    const { avatarUrl } = e.detail;
     this.setData({
-      "userInfo.avatar": avatarUrl,
-    })
+      avatar: avatarUrl,
+    });
   },
   onInputChange(e) {
-    console.log(e.detail.value);
     this.setData({
-      "userInfo.nickName": e.detail.value,
-    })
+      nickname: e.detail.value,
+    });
   },
   confirm() {
-    console.log(this.data.userInfo)
-    updateUserInfo(this.data.userInfo).then(res=> {
-      if(res.statusCode === 0) {
-        wx.setStorageSync('userInfo', this.data.userInfo)
-
-        app.globalData.isCreateRoom = true
-        wx.navigateBack()
+    updateAvatarNickname(this.data).then((res) => {
+      console.log(res);
+      const { nickname, avatar } = this.data;
+      app.globalData.userInfo.nickname = nickname;
+      app.globalData.userInfo.avatar = avatar;
+      if (res.code === 200) {
+        wx.navigateBack();
       }
-    })
+    });
   },
   cancel() {
-    wx.navigateBack()
-  }
-})
+    wx.navigateBack();
+  },
+});
