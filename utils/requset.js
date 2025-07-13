@@ -1,6 +1,7 @@
 // utils/request.js
 
-const BASE_URL = "http://localhost:8080/api";
+// const BASE_URL = "http://localhost:8080/api";
+const BASE_URL = "http://192.168.1.3:8080/api";
 
 // 请求封装
 function request({ url, method = "GET", data = {}, header = {} }) {

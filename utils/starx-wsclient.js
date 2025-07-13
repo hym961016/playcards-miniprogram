@@ -331,6 +331,7 @@ var connect = function (params, url, cb) {
     }
   };
   socket = wx.connectSocket({ url });
+  console.log(socket);
   socket.binaryType = "arraybuffer";
   socket.onOpen(onopen);
   socket.onMessage(onmessage);
@@ -387,6 +388,13 @@ starx.notify = function (route, msg) {
   sendMessage(0, route, msg);
 };
 
+starx.state = function () {
+  if (!socket) {
+    return -1;
+  }
+  return socket.readyState;
+};
+
 var sendMessage = function (reqId, route, msg) {
   if (useCrypto) {
     msg = JSON.stringify(msg);
@@ -404,7 +412,7 @@ var sendMessage = function (reqId, route, msg) {
 };
 
 var send = function (packet) {
-  socket.send({data: packet.buffer});
+  socket.send({ data: packet.buffer });
 };
 
 var handler = {};
@@ -572,7 +580,6 @@ var initData = function (data) {
       abbrs[dict[route]] = route;
     }
   }
-
 };
 
 module.exports = starx;

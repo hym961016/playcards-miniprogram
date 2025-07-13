@@ -10,6 +10,10 @@ Page({
   data: {
     showAddFriendDialog: false,
     showPayDialog: false,
+    roomInfo: {
+      roomNo: "",
+      teaScore: 0,
+    },
     players: [],
     msgList: [],
     payForm: {
@@ -24,10 +28,26 @@ Page({
   onLoad(options) {
     const roomNo = decodeURIComponent(options.roomNo);
     console.log(roomNo);
+    app.starx.on("onSyncRoomInfo", this.onSyncRoomInfo);
     app.starx.on("onMessage", this.onMessage);
     app.starx.on("onPlayerEnter", this.onPlayerEnter);
-    app.starx.request("room.ClientInitCompleted", (res) => {
-        console.log(res);
+    app.starx.notify("room.ClientInitCompleted", { roomNo });
+  },
+  onUnload() {
+    console.log("index unload...");
+  },
+  onShow() {
+    console.log("on room page show...");
+  },
+  onHide() {
+    console.log("on room page hide...");
+  },
+  onSyncRoomInfo(data) {
+    console.log("onSyncRoomInfo: ", data);
+    const { roomInfo, players } = data;
+    this.setData({
+      roomInfo,
+      players,
     });
   },
   onMessage() {},
@@ -37,12 +57,6 @@ Page({
   openAddFriendDialog(e) {
     this.setData({
       showAddFriendDialog: true,
-    });
-  },
-  syncState(data) {
-    this.setData({
-      players: data.users,
-      msgList: data.msgList,
     });
   },
   addPlayer(p) {

@@ -16,7 +16,7 @@
           <text class="iconfont icon-cha text-gray"></text>
         </view>
         <view class="text-sm">茶/饭</view>
-        <view class="text-orange text-bold">30</view>
+        <view class="text-orange text-bold">{{roomInfo.teaScore}}</view>
       </view>
       <view class="flex flex-column align-center margin-lr-sm">
         <view class="cu-avatar round xl margin-bottom-xs bg-gray" bind:tap="openAddFriendDialog">
