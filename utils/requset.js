@@ -1,7 +1,9 @@
 // utils/request.js
 
 // const BASE_URL = "http://localhost:8080/api";
-const BASE_URL = "http://192.168.1.3:8080/api";
+const HOST = "localhost";
+const PORT = "8080";
+const BASE_URL = `http://${HOST}:${PORT}/api`;
 
 // 请求封装
 function request({ url, method = "GET", data = {}, header = {} }) {
@@ -25,11 +27,7 @@ function request({ url, method = "GET", data = {}, header = {} }) {
             } else if (res.statusCode === 401 || res.statusCode === 403) {
               // Token 无效，重新登录
               login()
-                .then(() =>
-                  request({ url, method, data, header })
-                    .then(resolve)
-                    .catch(reject)
-                )
+                .then(() => request({ url, method, data, header }).then(resolve).catch(reject))
                 .catch(reject);
             } else {
               reject(res.data);

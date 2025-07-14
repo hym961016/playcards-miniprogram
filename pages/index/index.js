@@ -1,5 +1,4 @@
 // index.js
-import { getUserInfo } from "../../api/user";
 import { createRoom, isInRoom } from "../../api/game";
 
 const app = getApp();
@@ -12,7 +11,9 @@ Page({
     },
   },
   onLoad() {
+    console.log("on index load start...");
     this.getUserInfo();
+    console.log("on index load end...");
   },
   onShow() {
     if (app.globalData.userInfo) {
@@ -28,12 +29,10 @@ Page({
         userInfo: app.globalData.userInfo,
       });
     } else {
-      getUserInfo().then((res) => {
+      app.getUserInfo().then((res) => {
         this.setData({
           userInfo: res,
         });
-        console.log(res);
-        app.globalData.userInfo = res;
       });
     }
   },

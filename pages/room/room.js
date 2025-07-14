@@ -50,7 +50,13 @@ Page({
       players,
     });
   },
-  onMessage() {},
+  onMessage(data) {
+    console.log(data);
+    this.msgList.push(data);
+    this.setData({
+      msgList: this.msgList,
+    });
+  },
   onPlayerEnter() {
     console.log("player enter");
   },
