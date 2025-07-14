@@ -28,10 +28,20 @@ Page({
   onLoad(options) {
     const roomNo = decodeURIComponent(options.roomNo);
     console.log(roomNo);
-    app.starx.on("onSyncRoomInfo", this.onSyncRoomInfo);
-    app.starx.on("onMessage", this.onMessage);
-    app.starx.on("onPlayerEnter", this.onPlayerEnter);
-    app.starx.notify("room.ClientInitCompleted", { roomNo });
+    this.setData({
+      roomInfo: {
+        roomNo: roomNo,
+      },
+    });
+    app.starx.request("room.JoinRoom", { roomNo }, (res) => {
+      if (res.code !== 0) {
+        return;
+      }
+      app.starx.on("onSyncRoomInfo", this.onSyncRoomInfo);
+      app.starx.on("onMessage", this.onMessage);
+      app.starx.on("onPlayerEnter", this.onPlayerEnter);
+      app.starx.notify("room.ClientInitCompleted", { roomNo });
+    });
   },
   onUnload() {
     console.log("index unload...");
