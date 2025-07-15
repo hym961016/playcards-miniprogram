@@ -9,6 +9,7 @@ App({
     await this.getUserInfo();
     starx.on("io-error", this.onConnectError);
     starx.on("close", this.onStarxClose);
+    starx.on("isInRoom", this.isInRoom);
     this.loginGameServer();
   },
   async getUserInfo() {
@@ -16,7 +17,7 @@ App({
     return this.globalData.userInfo;
   },
   isInRoom() {
-    if (starx) {
+    if (this.starx) {
       this.starx.request("player.IsInRoom", (res) => {
         if (res.isInRoom) {
           wx.redirectTo({
@@ -33,14 +34,14 @@ App({
     console.log("游戏服务器连接关闭", e);
   },
   loginGameServer() {
-    starx.init({ host: "192.168.3.30", port: 8080, path: "/vertex", reconnect: true }, (socket) => {
+    starx.init({ host: "localhost", port: 8080, path: "/vertex", reconnect: true }, (socket) => {
       console.log("initialized", socket);
       this.socket = socket;
       this.starx = starx;
       starx.request("player.Login", this.globalData.userInfo, (res) => {
         console.log(res);
         console.log("登录游戏服务器成功");
-        this.isInRoom();
+        starx.emit('isInRoom')
       });
     });
   },

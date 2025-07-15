@@ -20,6 +20,7 @@ Page({
       to: undefined,
       amount: undefined,
     },
+    wxCodeUrl: "",
   },
 
   /**
@@ -27,11 +28,14 @@ Page({
    */
   onLoad(options) {
     const roomNo = decodeURIComponent(options.roomNo);
-    console.log(roomNo);
+    const wxCodeUrl = `http://localhost:8080/api/v1/room/getRoomWxCode?roomNo=${roomNo}`;
+    this.setData({
+      wxCodeUrl,
+    });
     app.starx.on("onSyncRoomInfo", this.onSyncRoomInfo);
     app.starx.on("onMessage", this.onMessage);
     app.starx.on("onPlayerEnter", this.onPlayerEnter);
-    app.starx.request("room.JoinRoom", { roomNo });
+    app.starx.notify("room.ClientInitCompleted");
   },
   onUnload() {
     app.starx.off("onSyncRoomInfo", this.onSyncRoomInfo);
@@ -48,10 +52,6 @@ Page({
   },
   onMessage(data) {
     console.log(data);
-    this.msgList.push(data);
-    this.setData({
-      msgList: this.msgList,
-    });
   },
   onPlayerEnter() {
     console.log("player enter");
@@ -85,16 +85,6 @@ Page({
   closeAddFriendDialog(e) {
     this.setData({
       showAddFriendDialog: false,
-    });
-    const p = {
-      avatarUrl: "",
-      nickName: "微信用户679",
-      amount: 30,
-      isOwner: false,
-    };
-    const players = this.data.players.concat(p);
-    this.setData({
-      players: players,
     });
   },
   openPayDialog(e) {

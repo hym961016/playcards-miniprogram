@@ -58,11 +58,11 @@ Page({
       scanType: ["wxCode"],
       success: (res) => {
         console.log(res);
-        app.starx.request("room.JoinRoom", (res) => {
+        // app.starx.request("room.JoinRoom", (res) => {
           wx.redirectTo({
-            url: "../room/room?roomNo=" + res.roomNo,
+            url: res.path,
           });
-        });
+        // });
       },
       fail: (err) => {
         console.log(err);
