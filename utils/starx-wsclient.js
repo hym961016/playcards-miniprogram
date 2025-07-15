@@ -25,10 +25,7 @@ function mixin(obj) {
  * @api public
  */
 
-Emitter.prototype.on = Emitter.prototype.addEventListener = function (
-  event,
-  fn
-) {
+Emitter.prototype.on = Emitter.prototype.addEventListener = function (event, fn) {
   this._callbacks = this._callbacks || {};
   (this._callbacks[event] = this._callbacks[event] || []).push(fn);
   return this;
@@ -160,11 +157,7 @@ var Package = Protocol.Package;
 var Message = Protocol.Message;
 var EventEmitter = Emitter;
 
-if (
-  typeof window != "undefined" &&
-  typeof sys != "undefined" &&
-  sys.localStorage
-) {
+if (typeof window != "undefined" && typeof sys != "undefined" && sys.localStorage) {
   window.localStorage = sys.localStorage;
 }
 
@@ -291,8 +284,7 @@ var connect = function (params, url, cb) {
   console.log("connect to " + url);
 
   var params = params || {};
-  var maxReconnectAttempts =
-    params.maxReconnectAttempts || DEFAULT_MAX_RECONNECT_ATTEMPTS;
+  var maxReconnectAttempts = params.maxReconnectAttempts || DEFAULT_MAX_RECONNECT_ATTEMPTS;
   reconnectUrl = url;
 
   var onopen = function (event) {
@@ -300,10 +292,7 @@ var connect = function (params, url, cb) {
       starx.emit("reconnect");
     }
     reset();
-    var obj = Package.encode(
-      Package.TYPE_HANDSHAKE,
-      Protocol.strencode(JSON.stringify(handshakeBuffer))
-    );
+    var obj = Package.encode(Package.TYPE_HANDSHAKE, Protocol.strencode(JSON.stringify(handshakeBuffer)));
     send(obj);
   };
   var onmessage = function (event) {
@@ -331,7 +320,6 @@ var connect = function (params, url, cb) {
     }
   };
   socket = wx.connectSocket({ url });
-  console.log(socket);
   socket.binaryType = "arraybuffer";
   socket.onOpen(onopen);
   socket.onMessage(onmessage);

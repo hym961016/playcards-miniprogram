@@ -23,7 +23,6 @@ Page({
     }
   },
   getUserInfo() {
-    console.log("getUserInfo");
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
@@ -36,8 +35,9 @@ Page({
       });
     }
   },
-  // 开房
+  // 我要开房
   openRoom() {
+    console.log("我要开房");
     app.starx.request("room.CreateRoom", (res) => {
       console.log(res);
       wx.redirectTo({
@@ -45,26 +45,25 @@ Page({
       });
     });
   },
-  getRoom(e) {
-    wx.navigateTo({
-      url: "../setting/setting?from=getRoom",
-    });
-  },
-  createRoomAction() {
-    wx.showLoading({
-      title: "加载中",
-    });
-    createRoom().then((res) => {
-      console.log(res);
-      wx.hideLoading();
-      if (res.statusCode === 0) {
-        wx.redirectTo({
-          url: "../room/room?roomNo=" + res.roomNo,
+  // 扫码进房
+  scanRoom() {
+    console.log("扫码进房");
+    wx.scanCode({
+      scanType: ["wxCode"],
+      success: (res) => {
+        console.log(res);
+        app.starx.request("room.JoinRoom", (res) => {
+          wx.redirectTo({
+            url: "../room/room?roomNo=" + res.roomNo,
+          });
         });
-      }
+      },
+      fail: (err) => {
+        console.log(err);
+      },
     });
   },
-  toUpdateUserInfoView(e) {
+  toSetting(e) {
     wx.navigateTo({
       url: "../setting/setting",
     });

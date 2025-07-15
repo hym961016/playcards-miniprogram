@@ -1,4 +1,4 @@
-<!--index.wxml-->
+<!-- index.wxml -->
 <view class="container">
   <view class="flex flex-column">
     <view class="flex flex-column align-center padding-xl">
@@ -26,11 +26,11 @@
   </view>
   <view class="flex padding-xl">
     <button class="flex-sub margin-xs cu-btn lg bg-orange" bind:tap="openRoom">我要开房</button>
-    <button class="flex-sub margin-xs cu-btn lg line-orange">扫码进房</button>
+    <button class="flex-sub margin-xs cu-btn lg line-orange" bind:tap="scanRoom">扫码进房</button>
   </view>
   <view class="flex justify-center">
     <view class="padding-xs text-sm text-gray">联系客服</view>
-    <view class="padding-xs text-sm text-gray" bind:tap="toUpdateUserInfoView">修改头像昵称</view>
+    <view class="padding-xs text-sm text-gray" bind:tap="toSetting">修改头像昵称</view>
     <view class="padding-xs text-sm text-gray">使用手册</view>
   </view>
 </view>
