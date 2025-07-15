@@ -15,6 +15,17 @@ App({
     this.globalData.userInfo = await getUserInfo();
     return this.globalData.userInfo;
   },
+  isInRoom() {
+    if (starx) {
+      this.starx.request("player.IsInRoom", (res) => {
+        if (res.isInRoom) {
+          wx.redirectTo({
+            url: "../room/room?roomNo=" + res.roomNo,
+          });
+        }
+      });
+    }
+  },
   onConnectError(err) {
     console.log("游戏服务器连接失败", err);
   },
@@ -29,6 +40,7 @@ App({
       starx.request("player.Login", this.globalData.userInfo, (res) => {
         console.log(res);
         console.log("登录游戏服务器成功");
+        this.isInRoom();
       });
     });
   },

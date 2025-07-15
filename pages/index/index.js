@@ -1,6 +1,4 @@
 // index.js
-import { createRoom, isInRoom } from "../../api/game";
-
 const app = getApp();
 
 Page({
@@ -21,6 +19,7 @@ Page({
         userInfo: app.globalData.userInfo,
       });
     }
+    app.isInRoom();
   },
   getUserInfo() {
     if (app.globalData.userInfo) {
@@ -40,9 +39,16 @@ Page({
     console.log("我要开房");
     app.starx.request("room.CreateRoom", (res) => {
       console.log(res);
-      wx.redirectTo({
-        url: "../room/room?roomNo=" + res.roomNo,
-      });
+      if (res.code === 0) {
+        wx.redirectTo({
+          url: "../room/room?roomNo=" + res.roomNo,
+        });
+      } else {
+        wx.showToast({
+          title: res.error,
+          icon: "none",
+        });
+      }
     });
   },
   // 扫码进房
