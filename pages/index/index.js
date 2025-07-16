@@ -9,9 +9,13 @@ Page({
     },
   },
   onLoad() {
+    app.starx.on("checkUnCompleteRoom", this.checkUnCompleteRoom);
     console.log("on index load start...");
     this.getUserInfo();
     console.log("on index load end...");
+  },
+  onUnload() {
+    app.starx.off("checkUnCompleteRoom", this.checkUnCompleteRoom);
   },
   onShow() {
     if (app.globalData.userInfo) {
@@ -19,7 +23,7 @@ Page({
         userInfo: app.globalData.userInfo,
       });
     }
-    app.isInRoom();
+    // app.isInRoom();
   },
   getUserInfo() {
     if (app.globalData.userInfo) {
@@ -33,6 +37,33 @@ Page({
         });
       });
     }
+  },
+  checkUnCompleteRoom() {
+    app.starx.request("room.UnCompleteRoom", (res) => {
+      console.log("UnCompleteRoom", res);
+      if (res.exist) {
+        const roomNo = res.roomNo;
+        wx.showModal({
+          title: "系统提示",
+          content: "你当前正在房间中，是否进入房间？",
+          confirmText: "进入房间",
+          cancelText: "退出房间",
+          success: function (res) {
+            if (res.confirm) {
+              console.log("用户点击进入房间");
+              app.starx.request("room.ReJoinRoom", { roomNo }, (res) => {
+                wx.redirectTo({
+                  url: "../room/room?roomNo=" + res.roomNo,
+                });
+              });
+            } else if (res.cancel) {
+              console.log("用户点击次要操作");
+              starx.request("room.ExitRoom", {});
+            }
+          },
+        });
+      }
+    });
   },
   // 我要开房
   openRoom() {
@@ -58,11 +89,14 @@ Page({
       scanType: ["wxCode"],
       success: (res) => {
         console.log(res);
-        // app.starx.request("room.JoinRoom", (res) => {
+        const roomNo = res.path.split("?")[1].split("=")[1];
+        console.log(roomNo);
+        app.starx.request("room.JoinRoom", { roomNo }, (res) => {
           wx.redirectTo({
             url: res.path,
+            url: "../room/room?roomNo=" + roomNo,
           });
-        // });
+        });
       },
       fail: (err) => {
         console.log(err);

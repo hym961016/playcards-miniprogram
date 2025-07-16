@@ -1,6 +1,4 @@
 // pages/room/room.js
-import { exitRoom } from "../../api/game";
-
 const app = getApp();
 
 Page({
@@ -32,6 +30,7 @@ Page({
     this.setData({
       wxCodeUrl,
     });
+
     app.starx.on("onSyncRoomInfo", this.onSyncRoomInfo);
     app.starx.on("onMessage", this.onMessage);
     app.starx.on("onPlayerEnter", this.onPlayerEnter);
@@ -50,8 +49,12 @@ Page({
       players,
     });
   },
-  onMessage(data) {
-    console.log(data);
+  onMessage(m) {
+    console.log(m);
+    const msgList = this.data.msgList.concat(m);
+    this.setData({
+      msgList: msgList,
+    });
   },
   onPlayerEnter() {
     console.log("player enter");
@@ -74,12 +77,8 @@ Page({
     });
   },
   exitRoom(e) {
-    exitRoom().then((res) => {
-      if (res.statusCode === 0) {
-        wx.redirectTo({
-          url: "../index/index",
-        });
-      }
+    wx.redirectTo({
+      url: "../index/index",
     });
   },
   closeAddFriendDialog(e) {

@@ -4,9 +4,7 @@
   <view class="flex bg-white" style="overflow-x: auto; border-bottom: 2rpx solid #82e968;">
     <view class="flex-sub flex justify-center padding-tb-sm">
       <view class="flex flex-column align-center margin-lr-sm" wx:for="{{players}}" wx:key="index" wx:for-item="player" bind:tap="openPayDialog">
-        <view class="cu-avatar round xl margin-bottom-xs bg-gray" style="{{player.avatar?'background-image:url('+player.avatar+');':''}}">
-          <text wx:if="{{!player.avatar}}" class="iconfont icon-wutouxiang text-gray"></text>
-        </view>
+        <image class="cu-avatar round xl margin-bottom-xs bg-gray" src="{{player.avatar}}"></image>
         <view class="text-sm">{{player.nickname}}</view>
         <view class="text-orange text-bold">{{player.score}}</view>
       </view>
@@ -36,8 +34,8 @@
   <scroll-view scroll-y class="message-wrapper">
     <view class="cu-chat">
       <block wx:for="{{msgList}}" wx:key="index">
-        <view wx:if="{{item.type === 1}}" class="cu-info">{{item.data.nickname}} 加入了房间</view>
-        <view wx:if="{{item.type === 2}}" class="cu-item bg-white">
+        <view wx:if="{{item.opType === 1}}" class="cu-info">{{item.nickname}} 加入了房间</view>
+        <view wx:if="{{item.opType === 2}}" class="cu-item bg-white">
           <view>
             <text class="text-bold">我</text>
             向
