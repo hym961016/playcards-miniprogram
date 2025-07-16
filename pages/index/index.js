@@ -9,13 +9,13 @@ Page({
     },
   },
   onLoad() {
-    app.starx.on("checkUnCompleteRoom", this.checkUnCompleteRoom);
+    app.starx.on("showUnCompleteTip", this.showUnCompleteTip);
     console.log("on index load start...");
     this.getUserInfo();
     console.log("on index load end...");
   },
   onUnload() {
-    app.starx.off("checkUnCompleteRoom", this.checkUnCompleteRoom);
+    app.starx.off("showUnCompleteTip", this.showUnCompleteTip);
   },
   onShow() {
     if (app.globalData.userInfo) {
@@ -23,7 +23,6 @@ Page({
         userInfo: app.globalData.userInfo,
       });
     }
-    // app.isInRoom();
   },
   getUserInfo() {
     if (app.globalData.userInfo) {
@@ -37,6 +36,27 @@ Page({
         });
       });
     }
+  },
+  showUnCompleteTip(roomNo) {
+    wx.showModal({
+      title: "系统提示",
+      content: "你当前正在房间中，是否进入房间？",
+      confirmText: "进入房间",
+      cancelText: "退出房间",
+      success: function (res) {
+        if (res.confirm) {
+          console.log("用户点击进入房间");
+          app.starx.request("room.ReJoinRoom", { roomNo }, (res) => {
+            wx.redirectTo({
+              url: "../room/room?roomNo=" + res.roomNo,
+            });
+          });
+        } else if (res.cancel) {
+          console.log("用户点击次要操作");
+          app.starx.request("room.ExitRoom", {});
+        }
+      },
+    });
   },
   checkUnCompleteRoom() {
     app.starx.request("room.UnCompleteRoom", (res) => {
@@ -58,7 +78,7 @@ Page({
               });
             } else if (res.cancel) {
               console.log("用户点击次要操作");
-              starx.request("room.ExitRoom", {});
+              app.starx.request("room.ExitRoom", {});
             }
           },
         });

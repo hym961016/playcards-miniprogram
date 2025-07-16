@@ -19,6 +19,18 @@
     "ignoreDevUnusedFiles": true,
     "bigPackageSizeSupport": false
   },
-  "condition": {},
+  "condition": {
+    "miniprogram": {
+      "list": [
+        {
+          "name": "pages/room/room",
+          "pathName": "pages/room/room",
+          "query": "roomNo=jtfw",
+          "scene": null,
+          "launchMode": "default"
+        }
+      ]
+    }
+  },
   "libVersion": "3.8.3"
 }

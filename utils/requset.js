@@ -1,9 +1,5 @@
 // utils/request.js
-
-// const BASE_URL = "http://localhost:8080/api";
-const HOST = "192.168.3.30";
-const PORT = "8080";
-const BASE_URL = `http://${HOST}:${PORT}/api`;
+import config from "../config/env";
 
 // 请求封装
 function request({ url, method = "GET", data = {}, header = {} }) {
@@ -14,7 +10,7 @@ function request({ url, method = "GET", data = {}, header = {} }) {
         // 发起请求
         const token = wx.getStorageSync("token");
         wx.request({
-          url: BASE_URL + url,
+          url: config.apiBaseUrl + url,
           method,
           data,
           header: {
@@ -65,7 +61,7 @@ function login() {
         if (res.code) {
           // 向后端发送登录请求，换取 Token
           wx.request({
-            url: BASE_URL + "/v1/user/login",
+            url: config.apiBaseUrl + "/v1/user/login",
             method: "POST",
             data: { code: res.code },
             success(loginRes) {

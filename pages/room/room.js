@@ -25,21 +25,31 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
+    console.log("room page laod start:", options);
     const roomNo = decodeURIComponent(options.roomNo);
     const wxCodeUrl = `http://localhost:8080/api/v1/room/getRoomWxCode?roomNo=${roomNo}`;
     this.setData({
       wxCodeUrl,
     });
-
     app.starx.on("onSyncRoomInfo", this.onSyncRoomInfo);
     app.starx.on("onMessage", this.onMessage);
-    app.starx.on("onPlayerEnter", this.onPlayerEnter);
+    app.starx.on("onReJoinRoom", this.onReJoinRoom);
     app.starx.notify("room.ClientInitCompleted");
+  },
+  onShow() {
+    if (wx.canIUse("hideHomeButton")) {
+      wx.hideHomeButton();
+    }
   },
   onUnload() {
     app.starx.off("onSyncRoomInfo", this.onSyncRoomInfo);
     app.starx.off("onMessage", this.onMessage);
     app.starx.off("onPlayerEnter", this.onPlayerEnter);
+  },
+  onReJoinRoom(roomNo) {
+    app.starx.request("room.ReJoinRoom", { roomNo }, (res) => {
+      app.starx.notify("room.ClientInitCompleted");
+    });
   },
   onSyncRoomInfo(data) {
     console.log("onSyncRoomInfo: ", data);
@@ -77,6 +87,7 @@ Page({
     });
   },
   exitRoom(e) {
+    app.starx.request("room.ExitRoom", {}, (res) => {});
     wx.redirectTo({
       url: "../index/index",
     });
