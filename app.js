@@ -12,12 +12,14 @@ App({
     await this.getUserInfo();
     starx.on("io-error", this.onConnectError);
     starx.on("close", this.onStarxClose);
-    starx.on("reconnect", this.isInRoom);
     this.loginGameServer();
   },
   async getUserInfo() {
     this.globalData.userInfo = await getUserInfo();
     return this.globalData.userInfo;
+  },
+  getUid() {
+    return this.globalData.userInfo.uid;
   },
   onConnectError(err) {
     console.log("游戏服务器连接失败", err);
@@ -26,7 +28,6 @@ App({
     console.log("游戏服务器重新连接");
   },
   onStarxClose(e) {
-    this.loginGameServerState = false;
     console.log("游戏服务器连接关闭", e);
     // 小程序挂起连接断开（进入后台时间超过5s）
     if (e.code === 0) {
@@ -53,7 +54,6 @@ App({
       this.starx = starx;
       starx.request("player.Login", this.globalData.userInfo, (res) => {
         console.log(res);
-        this.loginGameServerState = true;
         console.log("登录游戏服务器成功");
         const options = wx.getLaunchOptionsSync();
         if (options.scene === 1047) {

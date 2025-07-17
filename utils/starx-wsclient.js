@@ -65,40 +65,39 @@ Emitter.prototype.once = function (event, fn) {
  * @api public
  */
 
-Emitter.prototype.off =
-  Emitter.prototype.removeListener =
-  Emitter.prototype.removeAllListeners =
-  Emitter.prototype.removeEventListener =
-    function (event, fn) {
-      this._callbacks = this._callbacks || {};
+Emitter.prototype.off = Emitter.prototype.removeListener = Emitter.prototype.removeAllListeners = Emitter.prototype.removeEventListener = function (
+  event,
+  fn
+) {
+  this._callbacks = this._callbacks || {};
 
-      // all
-      if (0 == arguments.length) {
-        this._callbacks = {};
-        return this;
-      }
+  // all
+  if (0 == arguments.length) {
+    this._callbacks = {};
+    return this;
+  }
 
-      // specific event
-      var callbacks = this._callbacks[event];
-      if (!callbacks) return this;
+  // specific event
+  var callbacks = this._callbacks[event];
+  if (!callbacks) return this;
 
-      // remove all handlers
-      if (1 == arguments.length) {
-        delete this._callbacks[event];
-        return this;
-      }
+  // remove all handlers
+  if (1 == arguments.length) {
+    delete this._callbacks[event];
+    return this;
+  }
 
-      // remove specific handler
-      var cb;
-      for (var i = 0; i < callbacks.length; i++) {
-        cb = callbacks[i];
-        if (cb === fn || cb.fn === fn) {
-          callbacks.splice(i, 1);
-          break;
-        }
-      }
-      return this;
-    };
+  // remove specific handler
+  var cb;
+  for (var i = 0; i < callbacks.length; i++) {
+    cb = callbacks[i];
+    if (cb === fn || cb.fn === fn) {
+      callbacks.splice(i, 1);
+      break;
+    }
+  }
+  return this;
+};
 
 /**
  * Emit `event` with the given args.
@@ -374,13 +373,6 @@ starx.request = function (route, msg, cb) {
 starx.notify = function (route, msg) {
   msg = msg || {};
   sendMessage(0, route, msg);
-};
-
-starx.state = function () {
-  if (!socket) {
-    return -1;
-  }
-  return socket.readyState;
 };
 
 var sendMessage = function (reqId, route, msg) {

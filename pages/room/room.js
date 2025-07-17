@@ -24,23 +24,29 @@ Page({
       amount: "",
     },
     wxCodeUrl: "",
+    userInfo: {
+      uid: 0,
+    },
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    console.log("room page laod start:", options);
     const roomNo = decodeURIComponent(options.roomNo);
+    wx.setNavigationBarTitle({
+      title: `打牌记账 ${roomNo} 房间`,
+    });
     const wxCodeUrl = `${config.apiBaseUrl}/v1/room/getRoomWxCode?roomNo=${roomNo}`;
     this.setData({
       "roomInfo.roomNo": roomNo,
       wxCodeUrl,
+      userInfo: app.globalData.userInfo,
     });
-    app.starx.on("onSyncRoomState", this.onSyncRoomState);
-    app.starx.on("onSyncRoomRecords", this.onSyncRoomRecords);
-    app.starx.on("onMessage", this.onMessage);
-    app.starx.on("onReJoinRoom", this.onReJoinRoom);
+    app.starx.on("onSyncRoomState", this.onSyncRoomState.bind(this));
+    app.starx.on("onSyncRoomRecords", this.onSyncRoomRecords.bind(this));
+    app.starx.on("onMessage", this.onMessage.bind(this));
+    app.starx.on("onReJoinRoom", this.onReJoinRoom.bind(this));
     app.starx.notify("room.ClientInitCompleted");
   },
   onShow() {
@@ -49,10 +55,10 @@ Page({
     }
   },
   onUnload() {
-    app.starx.off("onSyncRoomState", this.onSyncRoomState);
-    app.starx.off("onSyncRoomRecords", this.onSyncRoomRecords);
-    app.starx.off("onMessage", this.onMessage);
-    app.starx.off("onReJoinRoom", this.onReJoinRoom);
+    app.starx.off("onSyncRoomState");
+    app.starx.off("onSyncRoomRecords");
+    app.starx.off("onMessage");
+    app.starx.off("onReJoinRoom");
   },
   onReJoinRoom(roomNo) {
     app.starx.request("room.ReJoinRoom", { roomNo }, (res) => {
@@ -60,7 +66,6 @@ Page({
     });
   },
   onSyncRoomState(data) {
-    console.log("onSyncRoomState: ", data);
     const { roomInfo, players } = data;
     this.setData({
       roomInfo,
@@ -74,7 +79,6 @@ Page({
     });
   },
   onMessage(m) {
-    console.log(m);
     const msgList = this.data.msgList.concat(m);
     this.setData({
       msgList: msgList,
@@ -133,6 +137,11 @@ Page({
   closeAddFriendDialog(e) {
     this.setData({
       showAddFriendDialog: false,
+    });
+  },
+  toSetting() {
+    wx.navigateTo({
+      url: "../setting/setting",
     });
   },
   toPayView(e) {

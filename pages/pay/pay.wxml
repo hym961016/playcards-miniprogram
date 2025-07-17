@@ -7,51 +7,15 @@
     </view>
   </view>
 
-  <view class="cu-form-group">
+  <view class="cu-form-group" wx:for="{{players}}" wx:key="uid">
     <view class="user">
-      <view class="cu-avatar round" style="background-image:url(https://image.meiye.art/pic_1628404025424);"></view>
+      <image class="cu-avatar round bg-gray" src="{{item.avatar}}"></image>
       <view class="nickname">
-        微信用户798大厦大厦大厦
+        {{item.nickname}}
       </view>
     </view>
     <view class="input-wrapper">
-      <input type="number"></input>
-    </view>
-  </view>
-
-  <view class="cu-form-group">
-    <view class="user">
-      <view class="cu-avatar round" style="background-image:url(https://image.meiye.art/pic_1628404025424);"></view>
-      <view class="nickname">
-        微信用户798大厦大厦大厦
-      </view>
-    </view>
-    <view class="input-wrapper">
-      <input type="number"></input>
-    </view>
-  </view>
-
-  <view class="cu-form-group">
-    <view class="user">
-      <view class="cu-avatar round" style="background-image:url(https://image.meiye.art/pic_1628404025424);"></view>
-      <view class="nickname">
-        微信用户798大厦大厦大厦
-      </view>
-    </view>
-    <view class="input-wrapper">
-      <input type="number" placeholder-class="price-input"></input>
-    </view>
-  </view>
-
-  <view class="cu-form-group">
-    <view class="user">
-      <view class="cu-avatar round" style="background-image:url(https://image.meiye.art/pic_1628404025424);"></view>
-      <view class="nickname">
-        微信用户798大厦大厦大厦
-      </view>
-    </view>
-    <view class="input-wrapper">
-      <input type="number"></input>
+      <input type="number" value="{{item.score}}" data-index="{{index}}" bindinput="bindPayScoreInput"></input>
     </view>
   </view>
 
@@ -64,7 +28,9 @@
 
   <view class="cu-form-group">
     <view class="user">
-      <view class="cu-avatar round" style="background-image:url(https://image.meiye.art/pic_1628404025424);"></view>
+      <view class="cu-avatar round bg-gray">
+          <text class="iconfont icon-cha text-gray"></text>
+      </view>
       <view class="nickname">
         茶/饭
       </view>

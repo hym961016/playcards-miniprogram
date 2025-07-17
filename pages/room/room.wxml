@@ -3,23 +3,23 @@
   <!-- 房间用户列表 -->
   <view class="flex bg-white" style="overflow-x: auto; border-bottom: 2rpx solid #82e968;">
     <view class="flex-sub flex justify-center padding-tb-sm">
-      <view class="flex flex-column align-center margin-lr-sm" wx:for="{{players}}" wx:key="index" wx:for-item="player" data-uid="{{player.uid}}" bind:tap="openPayDialog">
-        <image class="cu-avatar round xl margin-bottom-xs bg-gray" src="{{player.avatar}}"></image>
-        <view class="text-sm">{{player.nickname}}</view>
+      <view class="flex flex-column align-center margin-lr-sm" wx:for="{{players}}" wx:key="uid" wx:for-item="player" data-uid="{{player.uid}}" bind:tap="{{player.uid == userInfo.uid?'toSetting':'openPayDialog'}}">
+        <image class="cu-avatar round xl bg-gray" src="{{player.avatar}}"></image>
+        <view class="text-xs padding-tb-xs">{{player.nickname}}</view>
         <view class="text-orange text-bold">{{player.score}}</view>
       </view>
       <view class="flex flex-column align-center margin-lr-sm">
-        <view class="cu-avatar round xl margin-bottom-xs bg-gray">
+        <view class="cu-avatar round xl bg-gray">
           <text class="iconfont icon-cha text-gray"></text>
         </view>
-        <view class="text-sm">茶/饭</view>
+        <view class="text-xs padding-tb-xs">茶/饭</view>
         <view class="text-orange text-bold">{{roomInfo.teaScore}}</view>
       </view>
       <view class="flex flex-column align-center margin-lr-sm">
-        <view class="cu-avatar round xl margin-bottom-xs bg-gray" bind:tap="openAddFriendDialog">
+        <view class="cu-avatar round xl bg-gray" bind:tap="openAddFriendDialog">
           <text class="cuIcon-friendadd text-gray"></text>
         </view>
-        <view class="text-sm">添加好友</view>
+        <view class="text-xs padding-tb-xs">添加好友</view>
       </view>
     </view>
   </view>
@@ -27,7 +27,7 @@
   <view class="bg-green light">
     <view class='padding-xs text-lg'>
       <text class='cuIcon-magic text-orange'></text>
-      <text class="text-sm">点击好友头像可直接支出;点击自己头像可改头像昵称</text>
+      <text class="text-sm">点击好友头像可以直接支出;点击自己头像可以修改头像昵称</text>
     </view>
   </view>
   <!-- 操作消息内容框 -->
@@ -45,55 +45,6 @@
           <text class="text-orange text-bold">{{item.score}}</text>
         </view>
       </block>
-      <!-- <view class="cu-info">微信用户679 加入了房间</view>
-      <view class="cu-item bg-white">
-        <view><text class="text-bold">我</text> 向 <text class="text-bold">微信用户678</text> 支出分数</view>
-        <text class="text-orange text-bold">20</text>
-      </view>
-      <view class="cu-item bg-white">
-        <view><text class="text-bold">我</text> 向 <text class="text-bold">微信用户678</text> 支出分数</view>
-        <text class="text-orange text-bold">20</text>
-      </view>
-      <view class="cu-item bg-white">
-        <view><text class="text-bold">我</text> 向 <text class="text-bold">微信用户678</text> 支出分数</view>
-        <text class="text-orange text-bold">20</text>
-      </view>
-      <view class="cu-item bg-white">
-        <view><text class="text-bold">微信用户549</text> 向 <text class="text-bold">微信用户678</text> 支出分数</view>
-        <text class="text-orange text-bold">20</text>
-      </view>
-      <view class="cu-item bg-white">
-        <view><text class="text-bold">微信用户549</text> 向 <text class="text-bold">微信用户678</text> 支出分数</view>
-        <text class="text-orange text-bold">20</text>
-      </view>
-      <view class="cu-item bg-white">
-        <view><text class="text-bold">微信用户549</text> 向 <text class="text-bold">微信用户678</text> 支出分数</view>
-        <text class="text-orange text-bold">20</text>
-      </view>
-      <view class="cu-item bg-white">
-        <view><text class="text-bold">微信用户549</text> 向 <text class="text-bold">微信用户678</text> 支出分数</view>
-        <text class="text-orange text-bold">20</text>
-      </view>
-      <view class="cu-item bg-white">
-        <view><text class="text-bold">微信用户549</text> 向 <text class="text-bold">微信用户678</text> 支出分数</view>
-        <text class="text-orange text-bold">20</text>
-      </view>
-      <view class="cu-item bg-white">
-        <view><text class="text-bold">微信用户549</text> 向 <text class="text-bold">微信用户678</text> 支出分数</view>
-        <text class="text-orange text-bold">20</text>
-      </view>
-      <view class="cu-item bg-white">
-        <view><text class="text-bold">微信用户549</text> 向 <text class="text-bold">微信用户678</text> 支出分数</view>
-        <text class="text-orange text-bold">20</text>
-      </view>
-      <view class="cu-item bg-white">
-        <view><text class="text-bold">微信用户549</text> 向 <text class="text-bold">微信用户678</text> 支出分数</view>
-        <text class="text-orange text-bold">20</text>
-      </view>
-      <view class="cu-item bg-white">
-        <view><text class="text-bold">微信用户549</text> 向 <text class="text-bold">微信用户678</text> 支出分数</view>
-        <text class="text-orange text-bold">20</text>
-      </view> -->
     </view>
   </scroll-view>
   <!-- 底部操作按钮 -->
@@ -147,7 +98,7 @@
       </view>
       <view class="padding-sm bg-white">
         <view class="flex flex-column align-center margin-top-lg">
-          <image class="cu-avatar round xl margin-bottom-xs" src="{{payForm.to.avatar}}"></image>
+          <image class="cu-avatar round xl margin-bottom-xs bg-gray" src="{{payForm.to.avatar}}"></image>
           <view class="text-df padding-tb-sm">
             向
             <text class="text-bold">{{payForm.to.nickname}}</text>
