@@ -3,7 +3,7 @@
   <!-- 房间用户列表 -->
   <view class="flex bg-white" style="overflow-x: auto; border-bottom: 2rpx solid #82e968;">
     <view class="flex-sub flex justify-center padding-tb-sm">
-      <view class="flex flex-column align-center margin-lr-sm" wx:for="{{players}}" wx:key="index" wx:for-item="player" bind:tap="openPayDialog">
+      <view class="flex flex-column align-center margin-lr-sm" wx:for="{{players}}" wx:key="index" wx:for-item="player" data-uid="{{player.uid}}" bind:tap="openPayDialog">
         <image class="cu-avatar round xl margin-bottom-xs bg-gray" src="{{player.avatar}}"></image>
         <view class="text-sm">{{player.nickname}}</view>
         <view class="text-orange text-bold">{{player.score}}</view>
@@ -34,15 +34,15 @@
   <scroll-view scroll-y class="message-wrapper">
     <view class="cu-chat">
       <block wx:for="{{msgList}}" wx:key="index">
-        <view wx:if="{{item.opType === 1}}" class="cu-info">{{item.nickname}} 加入了房间</view>
-        <view wx:if="{{item.opType === 2}}" class="cu-item bg-white">
+        <view wx:if="{{item.opType === 1}}" class="cu-info">{{item.opNickname}} 加入了房间</view>
+        <view wx:if="{{item.opType === 3}}" class="cu-item bg-white">
           <view>
-            <text class="text-bold">我</text>
+            <text class="text-bold">{{item.opNickname}}</text>
             向
-            <text class="text-bold">微信用户678</text>
+            <text class="text-bold">{{item.toNickname}}</text>
             支出分数
           </view>
-          <text class="text-orange text-bold">20</text>
+          <text class="text-orange text-bold">{{item.score}}</text>
         </view>
       </block>
       <!-- <view class="cu-info">微信用户679 加入了房间</view>
@@ -147,22 +147,22 @@
       </view>
       <view class="padding-sm bg-white">
         <view class="flex flex-column align-center margin-top-lg">
-          <view class="cu-avatar round xl margin-bottom-xs" style="background-image:url(https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0);"></view>
+          <image class="cu-avatar round xl margin-bottom-xs" src="{{payForm.to.avatar}}"></image>
           <view class="text-df padding-tb-sm">
             向
-            <text class="text-bold">微信用户678</text>
+            <text class="text-bold">{{payForm.to.nickname}}</text>
             支出
           </view>
         </view>
         <view class="input-wrapper">
-          <input type="number" placeholder-class="input-plc" adjust-position="{{true}}"></input>
+          <input type="number" value="{{payForm.amount}}" bindinput="bindPayFormAmount" placeholder-class="input-plc" adjust-position="{{true}}"></input>
         </view>
       </view>
       <view class="cu-bar bg-white">
         <view class="action margin-0 flex-sub" bind:tap="closePayDialog">
           <text>取消</text>
         </view>
-        <view class="action margin-0 flex-sub solid-left text-green">
+        <view class="action margin-0 flex-sub solid-left text-green" bind:tap="handlePay">
           <text>确认</text>
         </view>
       </view>

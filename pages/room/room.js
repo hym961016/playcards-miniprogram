@@ -1,4 +1,5 @@
 // pages/room/room.js
+import config from "../../config/env";
 const app = getApp();
 
 Page({
@@ -15,8 +16,12 @@ Page({
     players: [],
     msgList: [],
     payForm: {
-      to: undefined,
-      amount: undefined,
+      to: {
+        uid: 0,
+        nickname: "",
+        avatar: "",
+      },
+      amount: "",
     },
     wxCodeUrl: "",
   },
@@ -27,11 +32,13 @@ Page({
   onLoad(options) {
     console.log("room page laod start:", options);
     const roomNo = decodeURIComponent(options.roomNo);
-    const wxCodeUrl = `http://localhost:8080/api/v1/room/getRoomWxCode?roomNo=${roomNo}`;
+    const wxCodeUrl = `${config.apiBaseUrl}/v1/room/getRoomWxCode?roomNo=${roomNo}`;
     this.setData({
+      "roomInfo.roomNo": roomNo,
       wxCodeUrl,
     });
-    app.starx.on("onSyncRoomInfo", this.onSyncRoomInfo);
+    app.starx.on("onSyncRoomState", this.onSyncRoomState);
+    app.starx.on("onSyncRoomRecords", this.onSyncRoomRecords);
     app.starx.on("onMessage", this.onMessage);
     app.starx.on("onReJoinRoom", this.onReJoinRoom);
     app.starx.notify("room.ClientInitCompleted");
@@ -42,21 +49,28 @@ Page({
     }
   },
   onUnload() {
-    app.starx.off("onSyncRoomInfo", this.onSyncRoomInfo);
+    app.starx.off("onSyncRoomState", this.onSyncRoomState);
+    app.starx.off("onSyncRoomRecords", this.onSyncRoomRecords);
     app.starx.off("onMessage", this.onMessage);
-    app.starx.off("onPlayerEnter", this.onPlayerEnter);
+    app.starx.off("onReJoinRoom", this.onReJoinRoom);
   },
   onReJoinRoom(roomNo) {
     app.starx.request("room.ReJoinRoom", { roomNo }, (res) => {
       app.starx.notify("room.ClientInitCompleted");
     });
   },
-  onSyncRoomInfo(data) {
-    console.log("onSyncRoomInfo: ", data);
+  onSyncRoomState(data) {
+    console.log("onSyncRoomState: ", data);
     const { roomInfo, players } = data;
     this.setData({
       roomInfo,
       players,
+    });
+  },
+  onSyncRoomRecords(msgList) {
+    console.log(msgList);
+    this.setData({
+      msgList: msgList,
     });
   },
   onMessage(m) {
@@ -65,9 +79,6 @@ Page({
     this.setData({
       msgList: msgList,
     });
-  },
-  onPlayerEnter() {
-    console.log("player enter");
   },
   openAddFriendDialog(e) {
     this.setData({
@@ -92,19 +103,36 @@ Page({
       url: "../index/index",
     });
   },
-  closeAddFriendDialog(e) {
+  bindPayFormAmount(e) {
     this.setData({
-      showAddFriendDialog: false,
+      "payForm.amount": e.detail.value,
     });
   },
   openPayDialog(e) {
+    console.log(e);
+    const uid = e.currentTarget.dataset.uid;
+    const player = this.data.players.find((p) => p.uid == uid);
     this.setData({
       showPayDialog: true,
+      payForm: {
+        to: player,
+        amount: "",
+      },
     });
   },
   closePayDialog(e) {
     this.setData({
       showPayDialog: false,
+    });
+  },
+  handlePay() {
+    console.log(this.data.payForm);
+    app.starx.notify("room.PayToOne", { tid: this.data.payForm.to.uid, score: Number(this.data.payForm.amount) });
+    this.closePayDialog();
+  },
+  closeAddFriendDialog(e) {
+    this.setData({
+      showAddFriendDialog: false,
     });
   },
   toPayView(e) {

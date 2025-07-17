@@ -4,14 +4,14 @@ import config from "./config/env";
 import { getUserInfo } from "./api/user";
 
 App({
-  async onLaunch() {
+  async onLaunch(options) {
+    console.log("app onlaunch options:", options);
     this.starx = starx;
     // 1.用户登录
     // 2.获取用户信息
     await this.getUserInfo();
     starx.on("io-error", this.onConnectError);
     starx.on("close", this.onStarxClose);
-    starx.on("isInRoom", this.isInRoom);
     starx.on("reconnect", this.isInRoom);
     this.loginGameServer();
   },
@@ -55,7 +55,14 @@ App({
         console.log(res);
         this.loginGameServerState = true;
         console.log("登录游戏服务器成功");
-        this.checkUnCompleteRoom();
+        const options = wx.getLaunchOptionsSync();
+        if (options.scene === 1047) {
+          console.log("通过扫描小程序码进入");
+          // 直接进入房间
+          starx.emit("joinRoom", options.query.scene);
+        } else {
+          this.checkUnCompleteRoom();
+        }
       });
     });
   },
