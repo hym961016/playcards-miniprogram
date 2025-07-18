@@ -145,6 +145,13 @@ Page({
     });
   },
   toPayView(e) {
+    if (this.data.players.length <= 1) {
+      wx.showToast({
+        title: "房间内只有一个人，没有可支出的对象",
+        icon: "none",
+      });
+      return;
+    }
     wx.navigateTo({
       url: "../pay/pay",
     });

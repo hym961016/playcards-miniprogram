@@ -2139,7 +2139,7 @@ egg-label>span::after {
 .cu-bar .content {
   position: absolute;
   text-align: center;
-  width: calc(100% - 340rpx);
+  /* width: calc(100% - 340rpx); */
   left: 0;
   right: 0;
   bottom: 0;

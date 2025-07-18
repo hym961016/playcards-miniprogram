@@ -2,30 +2,28 @@
 <view>
   <!-- 房间用户列表 -->
   <view class="flex bg-white" style="overflow-x: auto; border-bottom: 2rpx solid #82e968;">
-    <view class="flex-sub flex justify-center padding-tb-sm">
-      <view class="flex flex-column align-center margin-lr-sm" wx:for="{{players}}" wx:key="uid" wx:for-item="player" data-uid="{{player.uid}}" bind:tap="{{player.uid == userInfo.uid?'toSetting':'openPayDialog'}}">
-        <image class="cu-avatar round xl bg-gray" src="{{player.avatar}}"></image>
-        <view class="text-xs padding-tb-xs">{{player.nickname}}</view>
-        <view class="text-orange text-bold">{{player.score}}</view>
+    <view class="flex-sub flex justify-center margin">
+      <view class="flex vw4 flex-column align-center padding-lr-sm" wx:for="{{players}}" wx:key="uid" wx:for-item="player" data-uid="{{player.uid}}" bind:tap="{{player.uid == userInfo.uid?'toSetting':'openPayDialog'}}">
+        <image class="cu-avatar round xl bg-gray" mode="widthFix" src="{{player.avatar}}"></image>
+        <view class="nickname text-cut text-sm padding-tb-xs">{{player.nickname}}</view>
+        <view class="{{player.score < 0 ?'text-green':'text-red'}} text-bold">{{player.score}}</view>
       </view>
-      <view class="flex flex-column align-center margin-lr-sm">
-        <view class="cu-avatar round xl bg-gray">
-          <text class="iconfont icon-cha text-gray"></text>
-        </view>
-        <view class="text-xs padding-tb-xs">茶/饭</view>
-        <view class="text-orange text-bold">{{roomInfo.teaScore}}</view>
+      <view class="flex vw4 flex-column align-center padding-lr-sm">
+        <image class="cu-avatar round xl bg-gray" mode="widthFix" src="../../static/images/tea.png">
+        </image>
+        <view class="nickname text-cut text-sm padding-tb-xs">茶/饭</view>
+        <view class="{{roomInfo.teaScore < 0 ?'text-green':'text-red'}}  text-bold">{{roomInfo.teaScore}}</view>
       </view>
-      <view class="flex flex-column align-center margin-lr-sm">
-        <view class="cu-avatar round xl bg-gray" bind:tap="openAddFriendDialog">
-          <text class="cuIcon-friendadd text-gray"></text>
-        </view>
-        <view class="text-xs padding-tb-xs">添加好友</view>
+      <view class="flex vw4 flex-column align-center padding-lr-sm">
+        <image class="cu-avatar round xl bg-gray" mode="widthFix" src="../../static/images/微信.png" bind:tap="openAddFriendDialog">
+        </image>
+        <view class="nickname text-cut text-sm padding-tb-xs">添加好友</view>
       </view>
     </view>
   </view>
   <!-- 提示框 -->
   <view class="bg-green light">
-    <view class='padding-xs text-lg'>
+    <view class='margin-lr text-lg'>
       <text class='cuIcon-magic text-orange'></text>
       <text class="text-sm">点击好友头像可以直接支出;点击自己头像可以修改头像昵称</text>
     </view>
@@ -38,11 +36,11 @@
         <view wx:if="{{item.opType === 3}}" class="cu-item bg-white">
           <view>
             <text class="text-bold">{{item.opNickname}}</text>
-            向
+            <text class="padding-lr-xs">向</text>
             <text class="text-bold">{{item.toNickname}}</text>
-            支出分数
+            <text class="padding-lr-xs">支出分数</text>
           </view>
-          <text class="text-orange text-bold">{{item.score}}</text>
+          <text class="text-red text-bold">{{item.score}}</text>
         </view>
       </block>
     </view>
@@ -59,7 +57,7 @@
       <view class="action flex-sub solid-left text-red" bind:tap="toSettlementView">
         <view class="text-bold text-lg text-orange">
           <text class="iconfont icon-jiesuan padding-right-xs"></text>
-          结算
+          账单
         </view>
       </view>
       <view class="action flex-sub solid-left text-gray" bind:tap="exitRoom">

@@ -28,6 +28,17 @@
   width: 600rpx;
 }
 
+.vw4 {
+  width: 171.5rpx;
+}
+
+.nickname {
+  width: 150rpx;
+  text-align: center;
+  line-height: 28rpx;
+  vertical-align: baseline;
+}
+
 .cu-dialog .close-action {
   width: 75rpx;
   height: 75rpx;
