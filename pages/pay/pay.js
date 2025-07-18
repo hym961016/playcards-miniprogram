@@ -7,6 +7,7 @@ Page({
    */
   data: {
     players: [],
+    teaScore: "",
   },
 
   /**
@@ -31,5 +32,20 @@ Page({
     this.setData({
       [key]: e.detail.value,
     });
+  },
+  bindTeaScoreInput(e) {
+    this.setData({
+      teaScore: e.detail.value,
+    });
+  },
+  handlePayMany() {
+    const many = this.data.players.filter((p) => p.score).map((p) => ({ tid: p.uid, score: Number(p.score) }));
+    const data = { many };
+    if (this.data.teaScore) {
+      data.tea = { score: Number(this.data.teaScore) };
+    }
+    console.log(data);
+    app.starx.notify("room.PayToMany", data);
+    wx.navigateBack();
   },
 });

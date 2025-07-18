@@ -101,7 +101,6 @@ Page({
         });
       } else {
         wx.showModal({
-          title: "系统提示",
           content: res.message,
         });
       }

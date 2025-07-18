@@ -3,6 +3,14 @@
   border-bottom: 8rpx solid #82e968;
 }
 
+.fix-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9;
+}
+
 .fix-bottom-btn {
   background-color: var(--white);
   position: fixed;
@@ -14,15 +22,16 @@
 }
 
 .message-wrapper {
-  height: calc(100vh - 100rpx - 254rpx - 66rpx - env(safe-area-inset-bottom));
+  margin-top: 316rpx;
+  height: calc(100vh - 100rpx - 316rpx - env(safe-area-inset-bottom));
 }
 
-.cu-chat .cu-item {
+/* .cu-chat .cu-item {
   padding: 30rpx;
   border-bottom: 1rpx solid rgba(0, 0, 0, 0.1);
   justify-content: space-between;
   align-items: center;
-}
+} */
 
 .cu-dialog {
   width: 600rpx;

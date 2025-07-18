@@ -1,52 +1,91 @@
 <!-- pages/room/room.wxml -->
 <view>
   <!-- 房间用户列表 -->
-  <view class="flex bg-white" style="overflow-x: auto; border-bottom: 2rpx solid #82e968;">
-    <view class="flex-sub flex justify-center margin">
-      <view class="flex vw4 flex-column align-center padding-lr-sm" wx:for="{{players}}" wx:key="uid" wx:for-item="player" data-uid="{{player.uid}}" bind:tap="{{player.uid == userInfo.uid?'toSetting':'openPayDialog'}}">
-        <image class="cu-avatar round xl bg-gray" mode="widthFix" src="{{player.avatar}}"></image>
-        <view class="nickname text-cut text-sm padding-tb-xs">{{player.nickname}}</view>
-        <view class="{{player.score < 0 ?'text-green':'text-red'}} text-bold">{{player.score}}</view>
-      </view>
-      <view class="flex vw4 flex-column align-center padding-lr-sm">
-        <image class="cu-avatar round xl bg-gray" mode="widthFix" src="../../static/images/tea.png">
-        </image>
-        <view class="nickname text-cut text-sm padding-tb-xs">茶/饭</view>
-        <view class="{{roomInfo.teaScore < 0 ?'text-green':'text-red'}}  text-bold">{{roomInfo.teaScore}}</view>
-      </view>
-      <view class="flex vw4 flex-column align-center padding-lr-sm">
-        <image class="cu-avatar round xl bg-gray" mode="widthFix" src="../../static/images/微信.png" bind:tap="openAddFriendDialog">
-        </image>
-        <view class="nickname text-cut text-sm padding-tb-xs">添加好友</view>
+  <view class="fix-header shadow bg-white">
+    <view class="flex" style="overflow-x: auto;">
+      <view class="flex-sub flex justify-center margin">
+        <view class="flex vw4 flex-column align-center padding-lr-sm" wx:for="{{players}}" wx:key="uid" wx:for-item="player" data-uid="{{player.uid}}" bind:tap="{{player.uid == userInfo.uid?'toSetting':'openPayDialog'}}">
+          <image class="cu-avatar round xl bg-gray" mode="widthFix" src="{{player.avatar}}"></image>
+          <view class="nickname text-cut text-sm padding-tb-xs">{{player.nickname}}</view>
+          <view class="{{player.score < 0 ?'text-green':'text-red'}} text-bold">{{player.score}}</view>
+        </view>
+        <view class="flex vw4 flex-column align-center padding-lr-sm">
+          <image class="cu-avatar round xl bg-gray" mode="widthFix" src="../../static/images/tea.png">
+          </image>
+          <view class="nickname text-cut text-sm padding-tb-xs">茶/饭</view>
+          <view class="{{roomInfo.teaScore < 0 ?'text-green':'text-red'}}  text-bold">{{roomInfo.teaScore}}</view>
+        </view>
+        <view class="flex vw4 flex-column align-center padding-lr-sm">
+          <image class="cu-avatar round xl bg-gray" mode="widthFix" src="../../static/images/微信.png" bind:tap="openAddFriendDialog">
+          </image>
+          <view class="nickname text-cut text-sm padding-tb-xs">邀请好友</view>
+        </view>
       </view>
     </view>
-  </view>
-  <!-- 提示框 -->
-  <view class="bg-green light">
-    <view class='margin-lr text-lg'>
-      <text class='cuIcon-magic text-orange'></text>
-      <text class="text-sm">点击好友头像可以直接支出;点击自己头像可以修改头像昵称</text>
+    <!-- 提示框 -->
+    <view class="bg-green light">
+      <view class='margin-lr text-lg'>
+        <text class='cuIcon-magic text-orange'></text>
+        <text class="text-sm">点击好友头像可以直接支出;点击自己头像可以修改头像昵称</text>
+      </view>
     </view>
+    <view style="height: 5rpx;background-color: #82e968;"></view>
   </view>
+
   <!-- 操作消息内容框 -->
   <scroll-view scroll-y class="message-wrapper">
     <view class="cu-chat">
       <block wx:for="{{msgList}}" wx:key="index">
         <view wx:if="{{item.opType === 1}}" class="cu-info">{{item.opNickname}} 加入了房间</view>
-        <view wx:if="{{item.opType === 3}}" class="cu-item bg-white">
-          <view>
+        <view wx:elif="{{item.opType === 2}}" class="cu-info">{{item.opNickname}} 离开了房间</view>
+        <view wx:elif="{{item.opType === 3 && item.opId != userInfo.uid}}" class="cu-item">
+          <view class="cu-avatar radius" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big107000.jpg);"></view>
+          <view class="main">
+            <view class="content shadow">
+              <text class="padding-lr-xs">向</text>
+              <text class="text-bold">{{item.toNickname}}</text>
+              <text class="padding-lr-xs">支出</text>
+              <text class="text-red text-bold">{{item.score}}</text>
+            </view>
+          </view>
+          <view class="date"> 13:23</view>
+        </view>
+        <view wx:if="{{item.opType === 3 && item.opId == userInfo.uid}}" class="cu-item self">
+          <view class="main">
+            <view class="content shadow">
+              <text class="padding-lr-xs">向</text>
+              <text class="text-bold">{{item.toNickname}}</text>
+              <text class="padding-lr-xs">支出</text>
+              <text class="text-red text-bold">{{item.score}}</text>
+            </view>
+          </view>
+          <view class="cu-avatar radius" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big107000.jpg);"></view>
+          <view class="date"> 13:23</view>
+        </view>
+        <view wx:if="{{item.opType === 4}}" class="cu-item">
+          <view class="cu-avatar radius" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big107000.jpg);"></view>
+          <view class="main">
+            <view class="content shadow">
+              <text class="padding-lr-xs">向</text>
+              <text class="text-bold">茶/饭</text>
+              <text class="padding-lr-xs">支出</text>
+              <text class="text-red text-bold">{{item.score}}</text>
+            </view>
+          </view>
+          <view class="date"> 13:23</view>
+          <!-- <view>
             <text class="text-bold">{{item.opNickname}}</text>
             <text class="padding-lr-xs">向</text>
-            <text class="text-bold">{{item.toNickname}}</text>
+            <text class="text-bold">茶/饭</text>
             <text class="padding-lr-xs">支出分数</text>
           </view>
-          <text class="text-red text-bold">{{item.score}}</text>
+          <text class="text-red text-bold">{{item.score}}</text> -->
         </view>
       </block>
     </view>
   </scroll-view>
   <!-- 底部操作按钮 -->
-  <view class="fix-bottom-btn solid-top">
+  <view class="fix-bottom-btn shadow bg-white solid-top">
     <view class="cu-bar">
       <view class="action flex-sub text-green" bind:tap="toPayView">
         <view class="text-bold text-lg">

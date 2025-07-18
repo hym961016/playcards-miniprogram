@@ -36,12 +36,12 @@
       </view>
     </view>
     <view class="input-wrapper">
-      <input type="number" placeholder="赢的一方操作"></input>
+      <input type="number" value="{{teaScore}}" bindinput="bindTeaScoreInput" placeholder="赢的一方操作"></input>
     </view>
   </view>
 
   <view class="flex padding">
-    <button class="flex-sub cu-btn bg-orange lg">支出</button>
+    <button class="flex-sub cu-btn bg-orange lg" bind:tap="handlePayMany">支出</button>
   </view>
 
 </view>
