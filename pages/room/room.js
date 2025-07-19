@@ -27,6 +27,11 @@ Page({
     userInfo: {
       uid: 0,
     },
+    showModal: "",
+    payManyForm: {
+      players: [],
+      teaScore: "",
+    },
   },
 
   /**
@@ -137,6 +142,26 @@ Page({
   closeAddFriendDialog(e) {
     this.setData({
       showAddFriendDialog: false,
+    });
+  },
+  hideModal() {
+    this.setData({
+      showModal: "",
+    });
+  },
+  showPayManyModal() {
+    const players = this.data.players
+      .filter((p) => p.uid !== this.data.userInfo.uid)
+      .map((p) => {
+        return { ...p, score: "" };
+      });
+    console.log(players);
+    this.setData({
+      showModal: "payMany",
+      payManyForm: {
+        players: players,
+        teaScore: "",
+      },
     });
   },
   toSetting() {

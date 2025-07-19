@@ -3299,8 +3299,8 @@ swiper.round-dot .wx-swiper-dot.wx-swiper-dot-active {
   opacity: 0;
   outline: 0;
   text-align: center;
-  /* -ms-transform: scale(1.185);
-  transform: scale(1.185); */
+  -ms-transform: scale(1.185);
+  transform: scale(1.185); 
   backface-visibility: hidden;
   perspective: 2000rpx;
   background: rgba(0, 0, 0, 0.6);
@@ -3318,27 +3318,23 @@ swiper.round-dot .wx-swiper-dot.wx-swiper-dot-active {
 .cu-modal.show {
   opacity: 1;
   transition-duration: 0.3s;
-  /* -ms-transform: scale(1);
-  transform: scale(1); */
+  -ms-transform: scale(1);
+  transform: scale(1);
   overflow-x: hidden;
   overflow-y: auto;
   pointer-events: auto;
 }
 
 .cu-dialog {
-  position: fixed;
-  top: 45%;
-  left: 50%;
-  -webkit-transform: translate3d(-50%, -50%, 0);
-  transform: translate3d(-50%, -50%, 0);
-  /* display: inline-block; */
-  /* vertical-align: middle;
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
   margin-left: auto;
-  margin-right: auto; */
-  width: 640rpx;
-  /* max-width: 100%; */
+  margin-right: auto;
+  width: 412px;
+  max-width: 100%;
   background-color: #f8f8f8;
-  border-radius: 10rpx;
+  border-radius: 6px;
   overflow: hidden;
 }
 

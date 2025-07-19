@@ -7,9 +7,9 @@
 /* @import "colorui/dark.wxss"; */
 @import "static/fonts/iconfont.wxss";
 
-/* page {
-  background-color: var(--white);
-} */
+page {
+  background-color: var(--oc-gray-2);
+}
 
 /**app.wxss**/
 .container {

@@ -73,35 +73,52 @@
     </scroll-view>
   </view>
 
+
+
+
   <!-- 结算底部操作 -->
-  <view class="bottom-btn bg-white solids-top">
+  <view class="bottom-btn">
     <view class="flex margin-lr-lg">
-      <button class="flex-sub cu-btn bg-red lg" bind:tap="openSettleDialog">生成我的结算方案</button>
+      <button class="flex-sub cu-btn bg-red" bind:tap="openSettleDialog">生成我的结算方案</button>
     </view>
     <view class="flex margin-lr-lg padding-tb">
-      <button class="flex-sub cu-btn line-red lg margin-right" bind:tap="toStatementView">房间结算单</button>
-      <button class="flex-sub cu-btn line-red lg" bind:tap="toRankView">排行榜</button>
+      <button class="flex-sub cu-btn line-red margin-right" bind:tap="toStatementView">房间结算单</button>
+      <button class="flex-sub cu-btn line-red" bind:tap="toRankView">排行榜</button>
     </view>
   </view>
 
-  <!-- 结算窗口 -->
-  <view class="cu-modal {{showSettleDialog?'show':''}}">
+  <view class="cu-modal bottom-modal {{showSettleDialog ? 'show' : ''}}">
     <view class="cu-dialog">
-      <view class="cu-bar bg-white justify-end">
-        <view class="content">Modal标题</view>
+      <view class="cu-bar bg-white justify-end solid-bottom">
+        <view class="content">xxx的结算方案</view>
         <view class="action" bindtap="closeSettleDialog">
           <text class="cuIcon-close text-red"></text>
         </view>
       </view>
-      <view class="padding-xl">
-        Modal 内容。
-      </view>
-      <view class="cu-bar bg-white justify-end">
-        <view class="action">
-          <button class="cu-btn line-green text-green" bindtap="hideModal">取消</button>
-          <button class="cu-btn bg-green margin-left" bindtap="hideModal">确定</button>
-
+      <view class="padding-xl bg-white">
+        <view class="settle-panel">
+          <view class="settle-item text-sm">
+            <view>向微信用户678支出</view>
+            <view>90</view>
+          </view>
+          <view class="settle-item text-sm">
+            <view>向微信用户678支出</view>
+            <view>90</view>
+          </view>
+          <view class="settle-item text-sm">
+            <view>向微信用户678支出</view>
+            <view>90</view>
+          </view>
+          <view class="settle-item text-bold">
+            <view>合计</view>
+            <view>-190</view>
+          </view>
+          
         </view>
+        <view class="settle-btn flex">
+            <button class="flex-sub cu-btn line-gray margin-right" bindtap="closeSettleDialog">取消</button>
+            <button class="flex-sub cu-btn bg-red">确定</button>
+          </view>
       </view>
     </view>
   </view>

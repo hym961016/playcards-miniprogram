@@ -70,3 +70,21 @@
   padding-bottom: env(safe-area-inset-bottom);
   padding-top: 30rpx;
 }
+
+.settle-panel {
+  display: flex;
+  flex-direction: column;
+}
+
+.settle-panel .settle-item {
+  padding: 20rpx;
+  display: flex;
+  justify-content: space-between;
+}
+
+.settle-btn {
+  width: 100%;
+  margin-top: 40rpx;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
