@@ -33,53 +33,95 @@
   </view>
 
   <!-- 操作消息内容框 -->
-  <scroll-view scroll-y class="message-wrapper">
+  <scroll-view class="message-wrapper" scroll-y scroll-top="{{scrollTop}}">
     <view class="cu-chat">
       <block wx:for="{{msgList}}" wx:key="index">
         <view wx:if="{{item.opType === 1}}" class="cu-info">{{item.opNickname}} 加入了房间</view>
         <view wx:elif="{{item.opType === 2}}" class="cu-info">{{item.opNickname}} 离开了房间</view>
-        <view wx:elif="{{item.opType === 3}}" class="cu-item {{item.opId == userInfo.uid ? 'self' : ''}}">
-          <view wx:if="{{item.opId != userInfo.uid}}" class="cu-avatar radius" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big107000.jpg);"></view>
+        <view wx:elif="{{item.opType === 3 && item.opId != userInfo.uid }}" class="cu-item">
+          <view class="cu-avatar radius" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big107000.jpg);"></view>
           <view class="main">
-            <view wx:if="{{item.opId != userInfo.uid}}" class="name text-sm text-grey">{{item.opNickname}}</view>
+            <view class="name text-grey">{{item.opNickname}}</view>
             <view class="content shadow">
-              <text>向<text class="text-bold">【{{item.toNickname}}】</text>支出<text class="text-red text-bold padding-lr-xs">{{item.score}}</text></text>
+              <view class="message-info">
+                <view class="message-left flex">
+                  <view class="text-sub">向</view>
+                  <view class="text-sub text-cut text-blue to-nickname">{{item.toNickname}}</view>
+                  <view class="text-sub">支出</view>
+                </view>
+                <view class="message-right text-red text-price" style="font-size: {{item.score >= 1000 ? '22rpx' : '26rpx'}};">{{item.score}}</view>
+              </view>
             </view>
           </view>
-          <view wx:if="{{item.opId == userInfo.uid}}" class="cu-avatar radius" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big107000.jpg);"></view>
         </view>
-        <view wx:if="{{item.opType === 4}}" class="cu-item {{item.opId == userInfo.uid ? 'self' : ''}}">
-          <view wx:if="{{item.opId != userInfo.uid}}" class="cu-avatar radius" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big107000.jpg);"></view>
+        <view wx:elif="{{item.opType === 3 && item.opId == userInfo.uid }}" class="cu-item self">
           <view class="main">
-            <view wx:if="{{item.opId != userInfo.uid}}" class="name text-sm text-grey">{{item.opNickname}}</view>
             <view class="content shadow">
-              <text>向<text class="text-orange">【茶/饭】</text>支出<text class="text-red text-bold padding-lr-xs">{{item.score}}</text></text>
+              <view class="message-info">
+                <view class="message-left flex">
+                  <view class="text-sub">向</view>
+                  <view class="text-sub text-cut text-blue to-nickname">{{item.toNickname}}</view>
+                  <view class="text-sub">支出</view>
+                </view>
+                <view class="message-right text-red text-price" style="font-size: {{item.score >= 1000 ? '22rpx' : '26rpx'}};">{{item.score}}</view>
+              </view>
             </view>
           </view>
-          <view wx:if="{{item.opId == userInfo.uid}}" class="cu-avatar radius" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big107000.jpg);"></view>
+          <view class="cu-avatar radius" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big107000.jpg);"></view>
+        </view>
+        <view wx:elif="{{item.opType === 4 && item.opId != userInfo.uid }}" class="cu-item">
+          <view class="cu-avatar radius" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big107000.jpg);"></view>
+          <view class="main">
+            <view class="name text-grey">{{item.opNickname}}</view>
+            <view class="content shadow">
+              <view class="message-info">
+                <view class="message-left flex">
+                  <view class="text-sub">向</view>
+                  <view class="text-sub text-cut text-orange to-nickname">茶饭</view>
+                  <view class="text-sub">支出</view>
+                </view>
+                <view class="message-right text-red text-price" style="font-size: {{item.score >= 1000 ? '22rpx' : '26rpx'}};">{{item.score}}</view>
+              </view>
+            </view>
+          </view>
+        </view>
+        <view wx:elif="{{item.opType === 4 && item.opId == userInfo.uid }}" class="cu-item self">
+          <view class="main">
+            <view class="content shadow">
+              <view class="message-info">
+                <view class="message-left flex">
+                  <view class="text-sub">向</view>
+                  <view class="text-sub text-cut text-orange to-nickname">茶饭</view>
+                  <view class="text-sub">支出</view>
+                </view>
+                <view class="message-right text-red text-price" style="font-size: {{item.score >= 1000 ? '22rpx' : '26rpx'}};">{{item.score}}</view>
+              </view>
+            </view>
+          </view>
+          <view class="cu-avatar radius" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big107000.jpg);"></view>
         </view>
       </block>
     </view>
   </scroll-view>
 
   <!-- 底部操作按钮 -->
-  <view class="fix-bottom-btn bg-white shadow padding flex">
-    <button class="cu-btn flex-sub bg-green" bind:tap="showPayManyModal">
-      <view class="text-bold text-lg">
+  <view class="fix-footer bg-white shadow padding flex">
+    <button class="cu-btn flex-sub bg-orange" bind:tap="showPayManyModal">
+      <view class="text-bold text-sm">
         <text class="iconfont icon-zhichu padding-right-xs"></text>
-        支出
+        我要支出
       </view>
     </button>
-    <button class="cu-btn flex-sub bg-orange margin-lr" bind:tap="toSettlementView">
-      <view class="text-bold text-lg">
+    <button class="cu-btn flex-sub bg-red margin-lr" bind:tap="showSettleModal">
+      <view class="text-bold text-sm">
         <text class="iconfont icon-jiesuan padding-right-xs"></text>
-        账单
+        我要结算
       </view>
     </button>
-    <button class="cu-btn flex-sub lines-gray text-gray" bind:tap="exitRoom">
-      <view class="text-bold text-lg">
+    <button class="cu-btn flex-sub line-gray text-gray" bind:tap="exitRoom">
+      <view class="text-bold text-sm">
         <text class="iconfont icon-tuichu padding-right-xs"></text>
-        退出
+        退出房间
       </view>
     </button>
   </view>
@@ -138,13 +180,16 @@
   <!-- 支出多人弹窗 -->
   <view class="cu-modal bottom-modal {{showModal == 'payMany' ? 'show' : ''}}" bind:tap="hideModal">
     <view class="cu-dialog" catchtap>
-      <view class="cu-bar bg-white justify-end solid-bottom">
-        <view class="content text-bold">请输入需要支出的分数</view>
-        <view class="action" bindtap="hideModal">
-          <text class="cuIcon-close text-red"></text>
-        </view>
+      <view class="close-action" bindtap="hideModal">
+        <text class="cuIcon-close text-red"></text>
       </view>
-      <view class="flex flex-column">
+      <view class="pay-many padding bg-white flex flex-column">
+        <view class="cu-bar">
+          <view class="action">
+            <text class="text-df text-bold">输入您的支出方案</text>
+            <text class="text-sm text-Abc text-gray self-end margin-left-sm">输入为空或0不支出</text>
+          </view>
+        </view>
         <view class="cu-form-group" wx:for="{{payManyForm.players}}" wx:key="uid">
           <view class="user">
             <image class="cu-avatar round bg-gray" src="{{item.avatar}}"></image>
@@ -153,7 +198,7 @@
             </view>
           </view>
           <view class="input-wrapper">
-            <input type="number" value="{{item.score}}" data-index="{{index}}" bindinput="bindPayScoreInput"></input>
+            <input type="number" cursor-spacing="{{100 * payManyForm.players.length}}" value="{{item.score}}" data-index="{{index}}" bindinput="bindPayManyScoreInput"></input>
           </view>
         </view>
         <view class="cu-form-group">
@@ -166,11 +211,47 @@
             </view>
           </view>
           <view class="input-wrapper">
-            <input type="number" value="{{payManyForm.teaScore}}" bindinput="bindTeaScoreInput" placeholder="赢的一方操作"></input>
+            <input type="number" cursor-spacing="{{100 * (payManyForm.players.length +1) }}" value="{{payManyForm.teaScore}}" bindinput="bindPayManyTeaScoreInput" placeholder="赢的一方操作"></input>
           </view>
         </view>
         <view class="flex padding">
-          <button class="flex-sub cu-btn bg-orange lg" bind:tap="handlePayMany">支出</button>
+          <button class="flex-sub cu-btn text-bold bg-orange" bind:tap="handlePayMany">支出</button>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 结算账单弹窗 -->
+  <view class="cu-modal bottom-modal {{showModal == 'settle' ? 'show' : ''}}" bind:tap="hideModal">
+    <view class="cu-dialog" catchtap>
+      <view class="close-action" bindtap="hideModal">
+        <text class="cuIcon-close text-red"></text>
+      </view>
+      <view class="padding-xl bg-white">
+        <view class="result-info solid-bottom">
+          <view class="result text-xxxl">战斗胜利</view>
+          <view class="result-tip">获得 大神 称号，今晚你买单！</view>
+        </view>
+        <view class="settle-panel">
+          <view class="settle-item text-bold">
+            <view class="text-df">您的结算方案，合计</view>
+            <view class="text-df text-red">-190</view>
+          </view>
+          <view class="settle-item ">
+            <view>向微信用户678支出</view>
+            <view class="text-red">90</view>
+          </view>
+          <view class="settle-item ">
+            <view>向微信用户678支出</view>
+            <view class="text-red">90</view>
+          </view>
+          <view class="settle-item ">
+            <view>向微信用户678支出</view>
+            <view class="text-red">90</view>
+          </view>
+        </view>
+        <view class="settle-btn flex">
+          <button class="flex-sub cu-btn text-bold bg-red">立即结算</button>
         </view>
       </view>
     </view>

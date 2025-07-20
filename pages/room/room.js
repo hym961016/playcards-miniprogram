@@ -82,28 +82,18 @@ Page({
     this.setData({
       msgList: msgList,
     });
+    this.scrollToBottom();
   },
   onMessage(m) {
     const msgList = this.data.msgList.concat(m);
     this.setData({
       msgList: msgList,
     });
+    this.scrollToBottom();
   },
   openAddFriendDialog(e) {
     this.setData({
       showAddFriendDialog: true,
-    });
-  },
-  addPlayer(p) {
-    const players = this.data.players.concat(p);
-    this.setData({
-      players: players,
-    });
-  },
-  addMsg(m) {
-    const msgList = this.data.msgList.concat(m);
-    this.setData({
-      msgList: msgList,
     });
   },
   exitRoom(e) {
@@ -164,6 +154,35 @@ Page({
       },
     });
   },
+  bindPayManyScoreInput(e) {
+    const i = e.currentTarget.dataset.index;
+    const key = "payManyForm.players[" + i + "].score";
+    this.setData({
+      [key]: e.detail.value,
+    });
+  },
+  bindPayManyTeaScoreInput(e) {
+    this.setData({
+      "payManyForm.teaScore": e.detail.value,
+    });
+  },
+  handlePayMany() {
+    const many = this.data.payManyForm.players
+      .filter((p) => p.score)
+      .map((p) => ({ tid: p.uid, score: Number(p.score) }));
+    const data = { many };
+    if (this.data.payManyForm.teaScore) {
+      data.tea = { score: Number(this.data.payManyForm.teaScore) };
+    }
+    console.log(data);
+    app.starx.notify("room.PayToMany", data);
+    this.hideModal();
+  },
+  showSettleModal() {
+    this.setData({
+      showModal: "settle",
+    });
+  },
   toSetting() {
     wx.navigateTo({
       url: "../setting/setting",
@@ -185,5 +204,16 @@ Page({
     wx.navigateTo({
       url: "../settlement/settlement",
     });
+  },
+  scrollToBottom() {
+    const query = wx.createSelectorQuery();
+    query
+      .select(".cu-chat")
+      .boundingClientRect((rect) => {
+        if (rect) {
+          this.setData({ scrollTop: rect.height });
+        }
+      })
+      .exec();
   },
 });

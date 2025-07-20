@@ -8,10 +8,10 @@
   top: 0;
   left: 0;
   right: 0;
-  z-index: 9;
+  z-index: 999;
 }
 
-.fix-bottom-btn {
+.fix-footer {
   position: fixed;
   bottom: 0;
   left: 0;
@@ -48,13 +48,18 @@
 }
 
 .cu-dialog .close-action {
-  width: 75rpx;
-  height: 75rpx;
+  width: 100rpx;
+  height: 100rpx;
   position: absolute;
+  top: 0;
   right: 0;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+
+.cu-dialog .close-action>text[class*="cuIcon-"], .cu-dialog .close-action>view[class*="cuIcon-"] {
   font-size: 36rpx;
 }
 
@@ -83,6 +88,9 @@
   text-align: center;
 }
 
+.cu-chat {
+  /* height: calc(100vh - 124rpx - 316rpx - env(safe-area-inset-bottom)); */
+}
 
 .cu-chat .cu-item {
   align-items: center;
@@ -102,20 +110,52 @@
   text-align: right;
 }
 
+.cu-chat .cu-item>.main .content {
+  font-size: 28rpx;
+  max-width: calc(100vw - 360rpx);
+}
+
+.cu-chat .cu-item>.main .content .message-info {
+  display: flex;
+  flex-wrap: nowrap;
+  max-width: calc(100vw - 360rpx);
+  font-size: 26rpx;
+}
+
+.message-info .message-left {
+  word-break: keep-all;
+}
+
+.message-info .message-left .to-nickname {
+  max-width: 8em;
+}
+
+.message-info .message-right {
+  flex-basis: 20%;
+  font-weight: bold;
+}
+
 .cu-chat .cu-item>.main .name {
-  padding: 10rpx 0;
+  font-size: 22rpx;
+  padding-bottom: 5rpx;
 }
 
 
+/* 支出多人弹窗 */
+.pay-many {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.pay-many .cu-form-group {
+  font-size: 26rpx;
+}
 
 .cu-form-group .user {
   display: flex;
   align-items: center;
   flex-basis: 264rpx;
-  font-size: 30rpx;
 }
 
-/* 支出多人弹窗css */
 .cu-form-group .user .nickname {
   margin: 0 20rpx;
   width: 200rpx;
@@ -142,4 +182,46 @@
   font-weight: bold;
   color: var(--orange);
   text-align: center;
+}
+
+/* 结算账单弹窗 */
+.settle-panel {
+  display: flex;
+  flex-direction: column;
+}
+
+.settle-panel .settle-item {
+  padding: 20rpx;
+  display: flex;
+  justify-content: space-between;
+  font-size: 26rpx;
+}
+
+.settle-btn {
+  width: 100%;
+  margin-top: 40rpx;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+
+
+.result-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: var(--white);
+  text-align: center;
+  padding-bottom: 10rpx;
+}
+
+.result-info .result {
+  font-family: "阿里妈妈刀隶体 Regular";
+  font-size: 62rpx;
+  font-weight: bold;
+  color: var(--orange);
+  padding: 10rpx;
+}
+
+.result-info .result-tip {
+  margin-bottom: 10rpx;
 }

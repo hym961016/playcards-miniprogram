@@ -8,7 +8,7 @@
 @import "static/fonts/iconfont.wxss";
 
 page {
-  background-color: var(--oc-gray-2);
+  background-color: var(--oc-gray-1);
 }
 
 /**app.wxss**/
