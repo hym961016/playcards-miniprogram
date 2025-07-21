@@ -59,7 +59,8 @@
   z-index: 10;
 }
 
-.cu-dialog .close-action>text[class*="cuIcon-"], .cu-dialog .close-action>view[class*="cuIcon-"] {
+.cu-dialog .close-action > text[class*="cuIcon-"],
+.cu-dialog .close-action > view[class*="cuIcon-"] {
   font-size: 36rpx;
 }
 
@@ -93,11 +94,11 @@
 }
 
 .cu-chat .cu-item {
-  align-items: center;
-  padding: 15rpx 30rpx;
+  align-items: flex-start;
+  padding: 18rpx 30rpx;
 }
 
-.cu-chat .cu-item>.main {
+.cu-chat .cu-item > .main {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -105,21 +106,20 @@
   width: 100%;
 }
 
-.cu-chat .cu-item.self>.main {
+.cu-chat .cu-item.self > .main {
   align-items: flex-end;
   text-align: right;
 }
 
-.cu-chat .cu-item>.main .content {
+.cu-chat .cu-item > .main .content {
   font-size: 28rpx;
   max-width: calc(100vw - 360rpx);
 }
 
-.cu-chat .cu-item>.main .content .message-info {
+.cu-chat .cu-item > .main .content .message-info {
   display: flex;
   flex-wrap: nowrap;
   max-width: calc(100vw - 360rpx);
-  font-size: 26rpx;
 }
 
 .message-info .message-left {
@@ -135,11 +135,11 @@
   font-weight: bold;
 }
 
-.cu-chat .cu-item>.main .name {
+.cu-chat .cu-item > .main .name {
   font-size: 22rpx;
-  padding-bottom: 5rpx;
+  position: relative;
+  top: -5rpx;
 }
-
 
 /* 支出多人弹窗 */
 .pay-many {
@@ -202,8 +202,6 @@
   margin-top: 40rpx;
   padding-bottom: env(safe-area-inset-bottom);
 }
-
-
 
 .result-info {
   display: flex;

@@ -6,7 +6,7 @@
     <view class="flex" style="overflow-x: auto;">
       <view class="flex-sub flex justify-center margin">
         <view class="flex vw4 flex-column align-center padding-lr-sm" wx:for="{{players}}" wx:key="uid" wx:for-item="player">
-          <image class="cu-avatar round xl bg-gray" mode="widthFix" src="{{player.avatar}}" data-uid="{{player.uid}}" bind:tap="{{player.uid == userInfo.uid?'toSetting':'openPayDialog'}}"></image>
+          <image class="cu-avatar round xl bg-gray" mode="widthFix" src="{{player.avatar}}" data-uid="{{player.uid}}" bind:tap="{{player.uid == userInfo.uid?'toSetting':'showPayModal'}}"></image>
           <view class="nickname text-cut text-sm padding-tb-xs">{{player.nickname}}</view>
           <view class="{{player.score < 0 ?'text-green':'text-red'}} text-bold">{{player.score}}</view>
         </view>
@@ -17,7 +17,7 @@
           <view class="{{roomInfo.teaScore < 0 ?'text-green':'text-red'}}  text-bold">{{roomInfo.teaScore}}</view>
         </view>
         <view class="flex vw4 flex-column align-center padding-lr-sm">
-          <image class="cu-avatar round xl bg-gray" mode="widthFix" src="../../static/images/微信.png" bind:tap="openAddFriendDialog">
+          <image class="cu-avatar round xl bg-gray" mode="widthFix" src="../../static/images/微信.png" bind:tap="showAddFriendModal">
           </image>
           <view class="nickname text-cut text-sm padding-tb-xs">邀请好友</view>
         </view>
@@ -42,17 +42,12 @@
         <view wx:if="{{item.opType === 1}}" class="cu-info">{{item.opNickname}} 加入了房间</view>
         <view wx:elif="{{item.opType === 2}}" class="cu-info">{{item.opNickname}} 离开了房间</view>
         <view wx:elif="{{item.opType === 3 && item.opId != userInfo.uid }}" class="cu-item">
-          <view class="cu-avatar radius" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big107000.jpg);"></view>
+          <view class="cu-avatar radius" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big107000.jpg);" bind:tap="showPayModal"></view>
           <view class="main">
             <view class="name text-grey">{{item.opNickname}}</view>
             <view class="content shadow">
               <view class="message-info">
-                <view class="message-left flex">
-                  <view class="text-sub">向</view>
-                  <view class="text-sub text-cut text-blue to-nickname">{{item.toNickname}}</view>
-                  <view class="text-sub">支出</view>
-                </view>
-                <view class="message-right text-red text-price" style="font-size: {{item.score >= 1000 ? '22rpx' : '26rpx'}};">{{item.score}}</view>
+                <text>向<text class="text-bold">{{item.toNickname}}</text>支出<text class="text-red text-price text-bold">{{item.score}}</text><text class="text-xs">（含茶饭<text class="text-price">2</text>）</text></text>
               </view>
             </view>
           </view>
@@ -61,29 +56,19 @@
           <view class="main">
             <view class="content shadow">
               <view class="message-info">
-                <view class="message-left flex">
-                  <view class="text-sub">向</view>
-                  <view class="text-sub text-cut text-blue to-nickname">{{item.toNickname}}</view>
-                  <view class="text-sub">支出</view>
-                </view>
-                <view class="message-right text-red text-price" style="font-size: {{item.score >= 1000 ? '22rpx' : '26rpx'}};">{{item.score}}</view>
+                <text>向<text class="text-bold">{{item.toNickname}}</text>支出<text class="text-red text-price text-bold">{{item.score}}</text><text class="text-xs">（含茶饭<text class="text-price">2</text>）</text></text>
               </view>
             </view>
           </view>
           <view class="cu-avatar radius" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big107000.jpg);"></view>
         </view>
         <view wx:elif="{{item.opType === 4 && item.opId != userInfo.uid }}" class="cu-item">
-          <view class="cu-avatar radius" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big107000.jpg);"></view>
+          <view class="cu-avatar radius" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big107000.jpg);" bind:tap="showPayModal"></view>
           <view class="main">
             <view class="name text-grey">{{item.opNickname}}</view>
             <view class="content shadow">
               <view class="message-info">
-                <view class="message-left flex">
-                  <view class="text-sub">向</view>
-                  <view class="text-sub text-cut text-orange to-nickname">茶饭</view>
-                  <view class="text-sub">支出</view>
-                </view>
-                <view class="message-right text-red text-price" style="font-size: {{item.score >= 1000 ? '22rpx' : '26rpx'}};">{{item.score}}</view>
+                <text>向<text class="text-orange text-bold">茶饭</text>支出<text class="text-red text-price text-bold">{{item.score}}</text></text>
               </view>
             </view>
           </view>
@@ -92,22 +77,31 @@
           <view class="main">
             <view class="content shadow">
               <view class="message-info">
-                <view class="message-left flex">
-                  <view class="text-sub">向</view>
-                  <view class="text-sub text-cut text-orange to-nickname">茶饭</view>
-                  <view class="text-sub">支出</view>
-                </view>
-                <view class="message-right text-red text-price" style="font-size: {{item.score >= 1000 ? '22rpx' : '26rpx'}};">{{item.score}}</view>
+                <text>向<text class="text-orange text-bold">茶饭</text>支出<text class="text-red text-price text-bold">{{item.score}}</text></text>
               </view>
             </view>
           </view>
           <view class="cu-avatar radius" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big107000.jpg);"></view>
         </view>
         <view wx:elif="{{item.opType === 5 && item.opId != userInfo.uid }}" class="cu-item">
-          <view class="main">设置茶水</view>
+          <view class="cu-avatar radius" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big107000.jpg);"  bind:tap="showPayModal"></view>
+          <view class="main">
+            <view class="content shadow">
+              <view class="message-info">
+                <text>设置<text class="text-orange text-bold">茶饭</text>上限为<text class="text-price text-red text-bold">{{item.teaOpt.limit}}</text>每笔抽取比例<text class="text-orange">{{item.teaOpt.ratio}}%</text></text>
+              </view>
+            </view>
+          </view>
         </view>
         <view wx:elif="{{item.opType === 5 && item.opId == userInfo.uid }}" class="cu-item self">
-          <view class="main">设置茶水</view>
+          <view class="main">
+            <view class="content shadow">
+              <view class="message-info">
+                <text>设置<text class="text-orange text-bold">茶饭</text>上限为<text class="text-price text-red text-bold">{{item.teaOpt.limit}}</text>每笔抽取比例<text class="text-orange text-bold">{{item.teaOpt.ratio}}%</text></text>
+              </view>
+            </view>
+          </view>
+          <view class="cu-avatar radius" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big107000.jpg);"></view>
         </view>
       </block>
     </view>
@@ -116,31 +110,31 @@
   <!-- 底部操作按钮 -->
   <view class="fix-footer bg-white shadow padding flex">
     <button class="cu-btn flex-sub bg-orange" bind:tap="showPayManyModal">
-      <view class="text-bold text-sm">
-        <text class="iconfont icon-zhichu padding-right-xs"></text>
+      <view class="text-bold text-df">
+        <text class="iconfont icon-zhichu"></text>
         我要支出
       </view>
     </button>
     <button class="cu-btn flex-sub bg-red margin-lr" bind:tap="showSettleModal">
-      <view class="text-bold text-sm">
-        <text class="iconfont icon-jiesuan padding-right-xs"></text>
+      <view class="text-bold text-df">
+        <text class="iconfont icon-jiesuan"></text>
         我要结算
       </view>
     </button>
     <button class="cu-btn flex-sub line-gray text-gray" bind:tap="exitRoom">
-      <view class="text-bold text-sm">
-        <text class="iconfont icon-tuichu padding-right-xs"></text>
+      <view class="text-bold text-df">
+        <text class="iconfont icon-tuichu"></text>
         退出房间
       </view>
     </button>
   </view>
 
   <!-- 添加好友弹窗 -->
-  <view class="cu-modal {{showAddFriendDialog?'show':''}}">
+  <view class="cu-modal {{showModal == 'addFriend' ? 'show' : ''}}">
     <view class="cu-dialog">
       <view class="cu-bar bg-white justify-end">
         <view class="content">微信扫描二维码加入</view>
-        <view class="action" bindtap="closeAddFriendDialog">
+        <view class="action" bindtap="hideModal">
           <text class="cuIcon-close text-red"></text>
         </view>
       </view>
@@ -157,9 +151,9 @@
   </view>
 
   <!-- 支出分数弹窗 -->
-  <view class="cu-modal {{showPayDialog?'show':''}}">
+  <view class="cu-modal {{showModal == 'pay' ? 'show' : ''}}">
     <view class="cu-dialog">
-      <view class="close-action" bindtap="closePayDialog">
+      <view class="close-action" bindtap="hideModal">
         <text class="cuIcon-close text-red"></text>
       </view>
       <view class="padding-sm bg-white">
@@ -176,7 +170,7 @@
         </view>
       </view>
       <view class="cu-bar bg-white">
-        <view class="action margin-0 flex-sub" bind:tap="closePayDialog">
+        <view class="action margin-0 flex-sub" bind:tap="hideModal">
           <text>取消</text>
         </view>
         <view class="action margin-0 flex-sub solid-left text-green" bind:tap="handlePay">

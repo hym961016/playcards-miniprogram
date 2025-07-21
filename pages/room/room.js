@@ -100,9 +100,9 @@ Page({
     });
     this.scrollToBottom();
   },
-  openAddFriendDialog(e) {
+  showAddFriendModal(e) {
     this.setData({
-      showAddFriendDialog: true,
+      showModal: "addFriend",
     });
   },
   exitRoom(e) {
@@ -116,12 +116,12 @@ Page({
       "payForm.amount": e.detail.value,
     });
   },
-  openPayDialog(e) {
+  showPayModal(e) {
     console.log(e);
     const uid = e.currentTarget.dataset.uid;
     const player = this.data.players.find((p) => p.uid == uid);
     this.setData({
-      showPayDialog: true,
+      showModal: "pay",
       payForm: {
         to: player,
         amount: "",
@@ -178,6 +178,11 @@ Page({
   },
   handleSetTeaOpt() {
     console.log(this.data.setTeaOptForm);
+    app.starx.notify("room.SetTeaOpt", {
+      limit: Number(this.data.setTeaOptForm.limit),
+      ratio: this.data.setTeaOptForm.ratio,
+    });
+    this.hideModal();
   },
   showPayManyModal() {
     const players = this.data.players
