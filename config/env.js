@@ -19,6 +19,6 @@ const envConfig = {
 };
 
 // 手动指定当前环境，可根据实际情况修改
-const currentEnv = "test";
+const currentEnv = "development";
 
 export default envConfig[currentEnv];

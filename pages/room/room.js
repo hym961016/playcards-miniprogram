@@ -12,6 +12,10 @@ Page({
     roomInfo: {
       roomNo: "",
       teaScore: 0,
+      teaOpt: {
+        limit: 0,
+        ratio: 0,
+      },
     },
     players: [],
     msgList: [],
@@ -28,6 +32,10 @@ Page({
       uid: 0,
     },
     showModal: "",
+    setTeaOptForm: {
+      limit: 0,
+      ratio: 0,
+    },
     payManyForm: {
       players: [],
       teaScore: "",
@@ -71,6 +79,7 @@ Page({
     });
   },
   onSyncRoomState(data) {
+    console.log("onSyncRoomState", data);
     const { roomInfo, players } = data;
     this.setData({
       roomInfo,
@@ -138,6 +147,37 @@ Page({
     this.setData({
       showModal: "",
     });
+  },
+  showSetTeaOptModal() {
+    this.setData({
+      showModal: "setTeaOpt",
+      setTeaOptForm: this.data.roomInfo.teaOpt,
+    });
+  },
+  bindSetTeaOptMaxScoreInput(e) {
+    this.setData({
+      "setTeaOptForm.limit": e.detail.value,
+    });
+  },
+  decrease() {
+    let that = this;
+    let ratio = that.data.setTeaOptForm.ratio - 1;
+    if (ratio < 0) {
+      ratio = 0;
+    }
+    that.setData({
+      "setTeaOptForm.ratio": ratio,
+    });
+  },
+  increase() {
+    let that = this;
+    let ratio = that.data.setTeaOptForm.ratio + 1;
+    that.setData({
+      "setTeaOptForm.ratio": ratio,
+    });
+  },
+  handleSetTeaOpt() {
+    console.log(this.data.setTeaOptForm);
   },
   showPayManyModal() {
     const players = this.data.players

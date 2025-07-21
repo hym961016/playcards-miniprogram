@@ -1,16 +1,17 @@
 <!-- pages/room/room.wxml -->
+<wxs src="./room.wxs" module="utils" />
 <view>
   <!-- 房间用户列表 -->
   <view class="fix-header shadow bg-white">
     <view class="flex" style="overflow-x: auto;">
       <view class="flex-sub flex justify-center margin">
-        <view class="flex vw4 flex-column align-center padding-lr-sm" wx:for="{{players}}" wx:key="uid" wx:for-item="player" data-uid="{{player.uid}}" bind:tap="{{player.uid == userInfo.uid?'toSetting':'openPayDialog'}}">
-          <image class="cu-avatar round xl bg-gray" mode="widthFix" src="{{player.avatar}}"></image>
+        <view class="flex vw4 flex-column align-center padding-lr-sm" wx:for="{{players}}" wx:key="uid" wx:for-item="player">
+          <image class="cu-avatar round xl bg-gray" mode="widthFix" src="{{player.avatar}}" data-uid="{{player.uid}}" bind:tap="{{player.uid == userInfo.uid?'toSetting':'openPayDialog'}}"></image>
           <view class="nickname text-cut text-sm padding-tb-xs">{{player.nickname}}</view>
           <view class="{{player.score < 0 ?'text-green':'text-red'}} text-bold">{{player.score}}</view>
         </view>
         <view class="flex vw4 flex-column align-center padding-lr-sm">
-          <image class="cu-avatar round xl bg-gray" mode="widthFix" src="../../static/images/tea.png">
+          <image class="cu-avatar round xl bg-gray" mode="widthFix" src="../../static/images/tea.png" bind:tap="showSetTeaOptModal">
           </image>
           <view class="nickname text-cut text-sm padding-tb-xs">茶/饭</view>
           <view class="{{roomInfo.teaScore < 0 ?'text-green':'text-red'}}  text-bold">{{roomInfo.teaScore}}</view>
@@ -36,6 +37,8 @@
   <scroll-view class="message-wrapper" scroll-y scroll-top="{{scrollTop}}">
     <view class="cu-chat">
       <block wx:for="{{msgList}}" wx:key="index">
+        <view class="cu-info" wx:if="{{index === 0}}">{{utils.formatTime(item.operatedAt)}}</view>
+        <view class="cu-info" wx:elif="{{(item.operatedAt - msgList[index-1].operatedAt) > 60}}">{{utils.formatTime(item.operatedAt)}}</view>
         <view wx:if="{{item.opType === 1}}" class="cu-info">{{item.opNickname}} 加入了房间</view>
         <view wx:elif="{{item.opType === 2}}" class="cu-info">{{item.opNickname}} 离开了房间</view>
         <view wx:elif="{{item.opType === 3 && item.opId != userInfo.uid }}" class="cu-item">
@@ -99,6 +102,12 @@
             </view>
           </view>
           <view class="cu-avatar radius" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big107000.jpg);"></view>
+        </view>
+        <view wx:elif="{{item.opType === 5 && item.opId != userInfo.uid }}" class="cu-item">
+          <view class="main">设置茶水</view>
+        </view>
+        <view wx:elif="{{item.opType === 5 && item.opId == userInfo.uid }}" class="cu-item self">
+          <view class="main">设置茶水</view>
         </view>
       </block>
     </view>
@@ -171,6 +180,39 @@
           <text>取消</text>
         </view>
         <view class="action margin-0 flex-sub solid-left text-green" bind:tap="handlePay">
+          <text>确认</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 设置茶水弹窗 -->
+  <view class="cu-modal {{showModal == 'setTeaOpt' ? 'show' : ''}}">
+    <view class="cu-dialog">
+      <view class="close-action" bindtap="hideModal">
+        <text class="cuIcon-close text-red"></text>
+      </view>
+      <view class="padding-xl flex flex-column align-center bg-white">
+        <view class="flex flex-column">
+          <view class="title padding-tb">请大家喝茶吃饭吧！上限是：</view>
+          <view class="input-wrapper">
+            <input type="number" value="{{setTeaOptForm.limit}}" bindinput="bindSetTeaOptMaxScoreInput"></input>
+          </view>
+        </view>
+        <view class="flex">
+          <view class="title padding-right-xs">每笔抽取比例 </view>
+          <view class="flex justify-center align-center">
+            <view class="cu-tag radius bg-gray xl cuIcon-move" bindtap="decrease"></view>
+            <view class="margin-lr text-black text-percentage">{{setTeaOptForm.ratio}}</view>
+            <view class="cu-tag radius bg-orange xl cuIcon-add" bindtap="increase"></view>
+          </view>
+        </view>
+      </view>
+      <view class="cu-bar bg-white">
+        <view class="action margin-0 flex-sub" bind:tap="hideModal">
+          <text>取消</text>
+        </view>
+        <view class="action margin-0 flex-sub solid-left text-green" bind:tap="handleSetTeaOpt">
           <text>确认</text>
         </view>
       </view>

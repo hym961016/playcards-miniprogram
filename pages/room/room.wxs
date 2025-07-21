@@ -1,0 +1,22 @@
+// utils.wxs
+module.exports = {
+  // todo 昨天的消息时间处理
+  formatTime: function (timestamp) {
+    if (!timestamp || isNaN(timestamp)) {
+      return "00:00";
+    }
+
+    // 创建 Date 对象（注意：WXS 中无法直接使用 new Date()，需通过时间戳计算）
+    var date = getDate(timestamp * 1000);
+
+    // 获取小时和分钟
+    var hours = date.getHours();
+    var minutes = date.getMinutes();
+
+    // 补零处理
+    var formattedHours = hours < 10 ? "0" + hours : hours;
+    var formattedMinutes = minutes < 10 ? "0" + minutes : minutes;
+
+    return formattedHours + ":" + formattedMinutes;
+  },
+};
