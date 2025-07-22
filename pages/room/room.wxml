@@ -47,7 +47,7 @@
             <view class="name text-grey">{{item.opNickname}}</view>
             <view class="content shadow">
               <view class="message-info">
-                <text>向<text class="text-bold">{{item.toNickname}}</text>支出<text class="text-red text-price text-bold">{{item.score}}</text><text class="text-xs">（含茶饭<text class="text-price">2</text>）</text></text>
+                <text>向<text class="text-bold">{{item.toNickname}}</text>支出<text class="text-red text-price text-bold">{{item.score}}</text><text class="text-xs" wx:if="{{item.teaScore > 0}}">（含茶饭<text class="text-price">{{item.teaScore}}</text>）</text></text>
               </view>
             </view>
           </view>
@@ -56,7 +56,7 @@
           <view class="main">
             <view class="content shadow">
               <view class="message-info">
-                <text>向<text class="text-bold">{{item.toNickname}}</text>支出<text class="text-red text-price text-bold">{{item.score}}</text><text class="text-xs">（含茶饭<text class="text-price">2</text>）</text></text>
+                <text>向<text class="text-bold">{{item.toNickname}}</text>支出<text class="text-red text-price text-bold">{{item.score}}</text><text class="text-xs" wx:if="{{item.teaScore > 0}}">（含茶饭<text class="text-price">{{item.teaScore}}</text>）</text></text>
               </view>
             </view>
           </view>
@@ -68,7 +68,7 @@
             <view class="name text-grey">{{item.opNickname}}</view>
             <view class="content shadow">
               <view class="message-info">
-                <text>向<text class="text-orange text-bold">茶饭</text>支出<text class="text-red text-price text-bold">{{item.score}}</text></text>
+                <text>向<text class="text-orange text-bold">茶饭</text>支出<text class="text-red text-price text-bold">{{item.teaScore}}</text></text>
               </view>
             </view>
           </view>
@@ -77,18 +77,18 @@
           <view class="main">
             <view class="content shadow">
               <view class="message-info">
-                <text>向<text class="text-orange text-bold">茶饭</text>支出<text class="text-red text-price text-bold">{{item.score}}</text></text>
+                <text>向<text class="text-orange text-bold">茶饭</text>支出<text class="text-red text-price text-bold">{{item.teaScore}}</text></text>
               </view>
             </view>
           </view>
           <view class="cu-avatar radius" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big107000.jpg);"></view>
         </view>
         <view wx:elif="{{item.opType === 5 && item.opId != userInfo.uid }}" class="cu-item">
-          <view class="cu-avatar radius" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big107000.jpg);"  bind:tap="showPayModal"></view>
+          <view class="cu-avatar radius" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big107000.jpg);" bind:tap="showPayModal"></view>
           <view class="main">
             <view class="content shadow">
               <view class="message-info">
-                <text>设置<text class="text-orange text-bold">茶饭</text>上限为<text class="text-price text-red text-bold">{{item.teaOpt.limit}}</text>每笔抽取比例<text class="text-orange">{{item.teaOpt.ratio}}%</text></text>
+                <text>设置<text class="text-orange text-bold">茶饭</text>上限为<text class="text-price text-red text-bold">{{item.teaOpt.limit}}</text>每笔抽取比例<text class="text-orange text-bold">{{item.teaOpt.ratio}}%</text></text>
               </view>
             </view>
           </view>
@@ -271,23 +271,16 @@
         <view class="settle-panel">
           <view class="settle-item text-bold">
             <view class="text-df">您的结算方案，合计</view>
-            <view class="text-df text-red">-190</view>
+            <view class="text-df {{settleForm.totalScore < 0 ?'text-green':'text-red'}}">{{settleForm.totalScore}}</view>
           </view>
-          <view class="settle-item ">
-            <view>向微信用户678支出</view>
-            <view class="text-red">90</view>
-          </view>
-          <view class="settle-item ">
-            <view>向微信用户678支出</view>
-            <view class="text-red">90</view>
-          </view>
-          <view class="settle-item ">
-            <view>向微信用户678支出</view>
-            <view class="text-red">90</view>
+          <view class="settle-item " wx:for="{{settleForm.items}}" wx:key="toId">
+            <view wx:if="{{item.type == 1}}">{{item.toNickname}}向我支出</view>
+            <view wx:if="{{item.type == 2}}">我向{{item.toNickname}}支出</view>
+            <view class="{{item.score < 0 ?'text-green':'text-red'}}">{{item.score}}</view>
           </view>
         </view>
         <view class="settle-btn flex">
-          <button class="flex-sub cu-btn text-bold bg-red">立即结算</button>
+          <button class="flex-sub cu-btn text-bold bg-red" bind:tap="handleSettle">立即结算</button>
         </view>
       </view>
     </view>

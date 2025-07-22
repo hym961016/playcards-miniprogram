@@ -40,6 +40,11 @@ Page({
       players: [],
       teaScore: "",
     },
+    settleForm: {
+      totalScore: 0,
+      settleIndex: 0,
+      items: [],
+    },
   },
 
   /**
@@ -100,20 +105,15 @@ Page({
     });
     this.scrollToBottom();
   },
-  showAddFriendModal(e) {
-    this.setData({
-      showModal: "addFriend",
-    });
-  },
   exitRoom(e) {
     app.starx.request("room.ExitRoom", {}, (res) => {});
     wx.redirectTo({
       url: "../index/index",
     });
   },
-  bindPayFormAmount(e) {
+  showAddFriendModal(e) {
     this.setData({
-      "payForm.amount": e.detail.value,
+      showModal: "addFriend",
     });
   },
   showPayModal(e) {
@@ -128,20 +128,15 @@ Page({
       },
     });
   },
-  closePayDialog(e) {
+  bindPayFormAmount(e) {
     this.setData({
-      showPayDialog: false,
+      "payForm.amount": e.detail.value,
     });
   },
   handlePay() {
     console.log(this.data.payForm);
     app.starx.notify("room.PayToOne", { tid: this.data.payForm.to.uid, score: Number(this.data.payForm.amount) });
     this.closePayDialog();
-  },
-  closeAddFriendDialog(e) {
-    this.setData({
-      showAddFriendDialog: false,
-    });
   },
   hideModal() {
     this.setData({
@@ -224,9 +219,16 @@ Page({
     this.hideModal();
   },
   showSettleModal() {
-    this.setData({
-      showModal: "settle",
+    app.starx.request("room.GetSettlement", {}, (res) => {
+      console.log(res);
+      this.setData({
+        showModal: "settle",
+        settleForm: res,
+      });
     });
+  },
+  handleSettle() {
+    console.log(this.data.settleForm.settleIndex);
   },
   toSetting() {
     wx.navigateTo({
