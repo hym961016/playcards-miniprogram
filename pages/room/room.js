@@ -229,6 +229,8 @@ Page({
   },
   handleSettle() {
     console.log(this.data.settleForm.settleIndex);
+    app.starx.notify("room.Settle", { settleIndex: this.data.settleForm.settleIndex });
+    this.hideModal();
   },
   toSetting() {
     wx.navigateTo({

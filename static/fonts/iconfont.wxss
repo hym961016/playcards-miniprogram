@@ -11,9 +11,16 @@
 @font-face {
   font-family: "阿里妈妈刀隶体 Regular";
   font-weight: 400;
-  src: url("//at.alicdn.com/wf/webfont/MKAwKUOgK56M/saNVVAILqfCI.woff2") format("woff2"),
-    url("//at.alicdn.com/wf/webfont/MKAwKUOgK56M/5MjGGBJtzSzc.woff") format("woff");
+  src: url("//at.alicdn.com/wf/webfont/MKAwKUOgK56M/UkNAtNYQLTde.woff2") format("woff2"),
+    url("//at.alicdn.com/wf/webfont/MKAwKUOgK56M/85Xdt4UeTmdL.woff") format("woff");
+  font-variation-settings: normal;
   font-display: swap;
+}
+
+.webfont {
+  font-family: "阿里妈妈刀隶体 Regular";
+  font-variation-settings: normal;
+  /* Chrome 140 以下版本需要 */
 }
 
 .iconfont {

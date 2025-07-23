@@ -59,8 +59,8 @@
   z-index: 10;
 }
 
-.cu-dialog .close-action > text[class*="cuIcon-"],
-.cu-dialog .close-action > view[class*="cuIcon-"] {
+.cu-dialog .close-action>text[class*="cuIcon-"],
+.cu-dialog .close-action>view[class*="cuIcon-"] {
   font-size: 36rpx;
 }
 
@@ -98,7 +98,7 @@
   padding: 18rpx 30rpx;
 }
 
-.cu-chat .cu-item > .main {
+.cu-chat .cu-item>.main {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -106,17 +106,17 @@
   width: 100%;
 }
 
-.cu-chat .cu-item.self > .main {
+.cu-chat .cu-item.self>.main {
   align-items: flex-end;
   text-align: right;
 }
 
-.cu-chat .cu-item > .main .content {
+.cu-chat .cu-item>.main .content {
   font-size: 28rpx;
   max-width: calc(100vw - 360rpx);
 }
 
-.cu-chat .cu-item > .main .content .message-info {
+.cu-chat .cu-item>.main .content .message-info {
   display: flex;
   flex-wrap: nowrap;
   max-width: calc(100vw - 360rpx);
@@ -135,7 +135,11 @@
   font-weight: bold;
 }
 
-.cu-chat .cu-item > .main .name {
+.settle-info {
+  width: 100%;
+}
+
+.cu-chat .cu-item>.main .name {
   font-size: 22rpx;
   position: relative;
   top: -5rpx;
@@ -160,9 +164,12 @@
   margin: 0 20rpx;
   width: 200rpx;
   text-align: left;
-  white-space: nowrap; /* 禁止文字换行 */
-  overflow: hidden; /* 隐藏超出容器的文字 */
-  text-overflow: ellipsis; /* 使用省略号表示被隐藏的文字 */
+  white-space: nowrap;
+  /* 禁止文字换行 */
+  overflow: hidden;
+  /* 隐藏超出容器的文字 */
+  text-overflow: ellipsis;
+  /* 使用省略号表示被隐藏的文字 */
 }
 
 .cu-form-group .input-wrapper {
@@ -216,7 +223,6 @@
   font-family: "阿里妈妈刀隶体 Regular";
   font-size: 62rpx;
   font-weight: bold;
-  color: var(--orange);
   padding: 10rpx;
 }
 
