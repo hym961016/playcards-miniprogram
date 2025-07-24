@@ -86,6 +86,7 @@
         <view wx:elif="{{item.opType === 5 && item.opId != userInfo.uid }}" class="cu-item">
           <view class="cu-avatar radius" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big107000.jpg);" bind:tap="showPayModal"></view>
           <view class="main">
+            <view class="name text-grey">{{item.opNickname}}</view>
             <view class="content shadow">
               <view class="message-info">
                 <text>设置<text class="text-orange text-bold">茶饭</text>上限为<text class="text-price text-red text-bold">{{item.teaOpt.limit}}</text>每笔抽取比例<text class="text-orange text-bold">{{item.teaOpt.ratio}}%</text></text>
@@ -106,34 +107,31 @@
         <view wx:elif="{{item.opType === 6 && item.opId != userInfo.uid }}" class="cu-item">
           <view class="cu-avatar radius" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big107000.jpg);" bind:tap="showPayModal"></view>
           <view class="main">
-            <view class="content shadow">
-              <view class="settle-info">
-                <view class="flex padding-bottom-xs text-bold">
-                  <view>{{item.opNickname}}的结算方案</view>
-                  <view class="{{item.settlement.totalScore < 0 ?'text-green':'text-red'}}">{{item.settlement.totalScore}}</view>
-                </view>
-                <view class="flex padding-bottom-xs" wx:for="{{item.settlement.items}}" wx:for-item="settleItem" wx:key="index">
-                  <view wx:if="{{settleItem.type == 1}}">{{settleItem.nickname}}向他支出</view>
-                  <view wx:if="{{settleItem.type == 2}}">他向{{settleItem.nickname}}支出</view>
-                  <view class="{{settleItem.score < 0 ?'text-green':'text-red'}}">{{settleItem.score}}</view>
-                </view>
+            <view class="name text-grey">{{item.opNickname}}</view>
+            <view class="content settle-info shadow">
+              <view class="settle-info-item text-bold">
+                <view class="settle-item-left">{{item.opNickname}}的结算方案</view>
+                <view class="{{item.settlement.totalScore < 0 ?'text-green':'text-red'}}">{{item.settlement.totalScore}}</view>
+              </view>
+              <view class="settle-info-item" wx:for="{{item.settlement.items}}" wx:for-item="settleItem" wx:key="index">
+                <view class="settle-item-left" wx:if="{{settleItem.score > 0}}">{{settleItem.nickname}}向他支出</view>
+                <view class="settle-item-left" wx:else>他向{{settleItem.nickname}}支出</view>
+                <view class="{{settleItem.score < 0 ?'text-green':'text-red'}}">{{settleItem.score}}</view>
               </view>
             </view>
           </view>
         </view>
         <view wx:elif="{{item.opType === 6 && item.opId == userInfo.uid }}" class="cu-item self">
           <view class="main">
-            <view class="content shadow">
-              <view class="settle-info">
-                <view class="flex padding-bottom-xs text-bold">
-                  <view>{{item.opNickname}}的结算方案</view>
-                  <view class="{{item.settlement.totalScore < 0 ?'text-green':'text-red'}}">{{item.settlement.totalScore}}</view>
-                </view>
-                <view class="flex padding-bottom-xs" wx:for="{{item.settlement.items}}" wx:for-item="settleItem">
-                  <view wx:if="{{settleItem.type == 1}}">{{settleItem.nickname}}向他支出</view>
-                  <view wx:if="{{settleItem.type == 2}}">他向{{settleItem.nickname}}支出</view>
-                  <view class="{{settleItem.score < 0 ?'text-green':'text-red'}}">{{settleItem.score}}</view>
-                </view>
+            <view class="content settle-info shadow">
+              <view class="settle-info-item text-bold">
+                <view class="settle-item-left">{{item.opNickname}}的结算方案</view>
+                <view class="{{item.settlement.totalScore < 0 ?'text-green':'text-red'}}">{{item.settlement.totalScore}}</view>
+              </view>
+              <view class="settle-info-item" wx:for="{{item.settlement.items}}" wx:for-item="settleItem" wx:key="index">
+                <view class="settle-item-left" wx:if="{{settleItem.score > 0}}">{{settleItem.nickname}}向他支出</view>
+                <view class="settle-item-left" wx:else>他向{{settleItem.nickname}}支出</view>
+                <view class="{{settleItem.score < 0 ?'text-green':'text-red'}}">{{settleItem.score}}</view>
               </view>
             </view>
           </view>
@@ -311,8 +309,8 @@
             <view class="text-df {{settleForm.totalScore < 0 ?'text-green':'text-red'}}">{{settleForm.totalScore}}</view>
           </view>
           <view class="settle-item " wx:for="{{settleForm.items}}" wx:key="toId">
-            <view wx:if="{{item.type == 1}}">{{item.toNickname}}向我支出</view>
-            <view wx:if="{{item.type == 2}}">我向{{item.toNickname}}支出</view>
+            <view wx:if="{{item.score >= 0}}">{{item.nickname}}向我支出</view>
+            <view wx:else>我向{{item.nickname}}支出</view>
             <view class="{{item.score < 0 ?'text-green':'text-red'}}">{{item.score}}</view>
           </view>
         </view>

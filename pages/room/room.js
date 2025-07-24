@@ -42,7 +42,7 @@ Page({
     },
     settleForm: {
       totalScore: 0,
-      settleIndex: 0,
+      endIndex: 0,
       items: [],
     },
   },
@@ -228,8 +228,8 @@ Page({
     });
   },
   handleSettle() {
-    console.log(this.data.settleForm.settleIndex);
-    app.starx.notify("room.Settle", { settleIndex: this.data.settleForm.settleIndex });
+    console.log(this.data.settleForm.endIndex);
+    app.starx.notify("room.Settle", { settleIndex: this.data.settleForm.endIndex });
     this.hideModal();
   },
   toSetting() {
