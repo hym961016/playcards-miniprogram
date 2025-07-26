@@ -1,0 +1,35 @@
+/* pages/record/record.wxss */
+
+.record-header {
+  display: flex;
+  padding: 0 30rpx;
+  align-items: center;
+}
+
+.record-header .record-l {
+  margin-right: 20rpx;
+}
+
+.record-header .record-r {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.record-header .record-r .room {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 15rpx;
+}
+
+.record-header .record-r .score {
+  display: flex;
+  justify-content: space-between;
+  padding: 20rpx 0;
+  font-size: 24rpx;
+}
+
+.record-header .record-r .date {
+  padding-bottom: 15rpx;
+  font-size: 24rpx;
+}

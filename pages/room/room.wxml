@@ -291,6 +291,8 @@
     </view>
   </view>
 
+  v
+
   <!-- 结算账单弹窗 -->
   <view class="cu-modal bottom-modal {{showModal == 'settle' ? 'show' : ''}}" bind:tap="hideModal">
     <view class="cu-dialog" catchtap>

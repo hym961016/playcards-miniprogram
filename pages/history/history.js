@@ -1,66 +1,56 @@
 // pages/history/history.js
 Page({
-
   /**
    * 页面的初始数据
    */
   data: {
-
+    slideButtons: [
+      {
+        text: "总分排行",
+      },
+      {
+        text: "流水",
+      },
+      {
+        type: "warn",
+        text: "删除",
+      },
+    ],
+    showRank: false,
+    rankButtons: [{ text: "关闭" }, { text: "转发给好友" }],
   },
+  onLoad(options) {},
+  slideButtonTap(e) {
+    console.log(e);
+    const index = e.detail.index;
+    switch (index) {
+      case 0:
+        console.log("总分排行");
+        this.setData({
+          showRank: true,
+        });
+        break;
+      case 1:
+        console.log("流水");
+        wx.navigateTo({
+          url: "../record/record",
+        });
+        break;
+      case 2:
+        console.log("删除");
+        wx.showModal({
+          title: "删除提醒",
+          content: "点击确认删除后，此次房间数据将不再展示！",
+          complete: (res) => {
+            if (res.cancel) {
+            }
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad(options) {
-
+            if (res.confirm) {
+            }
+          },
+        });
+        break;
+    }
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload() {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh() {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom() {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage() {
-
-  }
-})
+  rankButtonTap(e) {},
+});

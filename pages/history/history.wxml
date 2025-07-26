@@ -1,7 +1,7 @@
 <!--pages/history/history.wxml-->
 <view>
   <view class="history-header">
-    <view class="cu-avatar round xl" style="background-image:url(https://image.meiye.art/pic_1628404025424);"></view>
+    <image class="cu-avatar round xl" src="https://image.meiye.art/pic_1628404025424"></image>
     <view class="detail">
       <view class="flex-sub flex justify-between align-center text-lg">
         <view>微信用户678</view>
@@ -17,41 +17,44 @@
   <scroll-view class="history-list" scroll-y>
     <view class="history-container">
 
-      <view class="history-item">
-        <view class="info">
-          <view class="room">房间号：18ih</view>
-          <view class="type bg-orange">赢</view>
-          <view class="amount">666</view>
-        </view>
-        <view class="date">
-          <view class="text-sm">12-25 14:20</view>
-          <view class="cu-tag radius bg-red sm">未结算</view>
-        </view>
-      </view>
+      <!-- todo 吸顶 -->
+      <view class="history-item year">2024</view>
 
-      <view class="history-item">
-        <view class="info">
-          <view class="room">房间号：uudn</view>
-          <view class="type bg-orange">赢</view>
-          <view class="amount">666</view>
+      <!-- todo 左滑删除 -->
+      <mp-slideview wx:for="{{10}}" buttons="{{slideButtons}}" bindbuttontap="slideButtonTap">
+        <view class="history-item">
+          <view class="info margin-bottom-sm">
+            <view class="room">12-25 14:20 房号:18ih</view>
+            <view class="type bg-orange">赢</view>
+            <view class="amount text-price">666</view>
+          </view>
+          <view>
+            <view class="text-sm padding-tb-xs">和微信用户629(50000-茶0)</view>
+            <view class="text-sm padding-tb-xs">和微信用户629(50000-茶0)</view>
+            <view class="text-sm padding-tb-xs">和微信用户629(50000-茶0)</view>
+            <view class="text-sm padding-tb-xs">和微信用户629(50000-茶0)</view>
+          </view>
         </view>
-        <view class="date">
-          <view class="text-sm">12-25 14:20</view>
-          <view class="cu-tag radius bg-orange sm">部分未结算</view>
-        </view>
-      </view>
+      </mp-slideview>
+    </view>
+  </scroll-view>
 
-      <view class="history-item">
-        <view class="info">
-          <view class="room">房间号：uudn</view>
-          <view class="type bg-green">输</view>
-          <view class="amount">666</view>
-        </view>
-        <view class="date">
-          <view class="text-sm">12-25 14:20</view>
-          <view class="cu-tag radius bg-green sm">已全部结算</view>
+  <mp-dialog show="{{showRank}}" ext-class="rank-info" buttons="{{rankButtons}}">
+    <view slot="title" class="rank-title">
+      <image class="icon" src="../../static/images/排行榜.png" mode="widthFix" />
+      <view>历史账单：uudn</view>
+    </view>
+    <view class="rank-list">
+      <view class="rank-item">
+        <image class="icon" src="../../static/images/ranking-1.png" mode="widthFix"></image>
+        <view class="content">
+          <view class="userinfo">
+            <view class="cu-avatar round sm margin-lr-xs" style="background-image:url(https://image.meiye.art/pic_1628404025424);"></view>
+            <view>微信用户765</view>
+          </view>
+          <view class="amount text-orange">+100000</view>
         </view>
       </view>
     </view>
-  </scroll-view>
+  </mp-dialog>
 </view>

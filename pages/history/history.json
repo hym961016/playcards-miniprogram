@@ -1,4 +1,7 @@
 {
-  "usingComponents": {},
+  "usingComponents": {
+    "mp-slideview": "weui-miniprogram/slideview/slideview",
+    "mp-dialog": "weui-miniprogram/dialog/dialog"
+  },
   "disableScroll": true
 }

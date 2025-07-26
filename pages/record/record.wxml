@@ -1,0 +1,25 @@
+<!--pages/record/record.wxml-->
+<view>
+  <view class="record-header bg-white shadow">
+    <view class="record-l">
+      <image class="cu-avatar round xl" src="https://image.meiye.art/pic_1628404025424"></image>
+    </view>
+    <view class="record-r">
+      <view class="room">
+        <view class="nickname">微信用户659</view>
+        <view class="number">房号：uudn</view>
+      </view>
+      <view class="score">
+        <view class="text-green">输/赢：-500</view>
+        <view class="text-green">茶饭：18</view>
+        <view class="text-green">结后：-518</view>
+      </view>
+      <view class="date">日期：2025-07-26 10:38:50</view>
+    </view>
+  </view>
+  <scroll-view class="record-list" scroll-y>
+    <view class="record-container">
+      <view class="record-item" wx:for="{{10}}"></view>
+    </view>
+  </scroll-view>
+</view>

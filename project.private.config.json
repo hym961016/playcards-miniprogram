@@ -23,11 +23,25 @@
     "miniprogram": {
       "list": [
         {
-          "name": "pages/settlement/settlement",
-          "pathName": "pages/settlement/settlement",
+          "name": "pages/record/record",
+          "pathName": "pages/record/record",
           "query": "",
           "scene": null,
           "launchMode": "default"
+        },
+        {
+          "name": "pages/history/history",
+          "pathName": "pages/history/history",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "pages/settlement/settlement",
+          "pathName": "pages/settlement/settlement",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
         },
         {
           "name": "pages/room/room",

@@ -1,4 +1,4 @@
-// pages/statement/statement.js
+// pages/record/record.js
 Page({
 
   /**

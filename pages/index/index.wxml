@@ -12,7 +12,7 @@
       </view>
       <view class="flex-sub text-center">
         <view class="text-xl text-bold padding-xs">12</view>
-        <view class="text-underline">局数</view>
+        <view class="text-underline" bind:tap="toHistory">局数</view>
       </view>
       <view class="flex-sub text-center">
         <view class="text-xl text-bold text-percentage padding-xs">20</view>

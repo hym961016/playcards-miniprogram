@@ -111,4 +111,9 @@ Page({
       url: "../setting/setting",
     });
   },
+  toHistory() {
+    wx.navigateTo({
+      url: "../history/history",
+    });
+  },
 });
