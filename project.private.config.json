@@ -23,11 +23,18 @@
     "miniprogram": {
       "list": [
         {
-          "name": "pages/record/record",
-          "pathName": "pages/record/record",
+          "name": "pages/statement/statement",
+          "pathName": "pages/statement/statement",
           "query": "",
           "scene": null,
           "launchMode": "default"
+        },
+        {
+          "name": "pages/record/record",
+          "pathName": "pages/record/record",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
         },
         {
           "name": "pages/history/history",

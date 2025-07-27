@@ -1,2 +1,26 @@
-<!--pages/statement/statement.wxml-->
-<text>pages/statement/statement.wxml</text>
+<!-- 页面的wxml -->
+<view class="container">
+  <!-- 吸顶元素：固定在顶部，内容随滚动动态变化 -->
+  <view class="sticky-bar" wx:if="{{currentStickyYear}}">
+    {{currentStickyYear}}
+  </view>
+
+  <!-- 滚动容器：监听滚动事件 -->
+  <scroll-view class="record-scroll" scroll-y bindscroll="onScroll" scroll-with-animation>
+    <!-- 分组列表 -->
+    <view class="record-list">
+      <!-- 遍历分组数据 -->
+      <block wx:for="{{groupedRecords}}" wx:key="year">
+        <!-- 年份标题（class为year-title，用于计算位置） -->
+        <view class="year-title">{{item.year}}</view>
+        <!-- 该年份下的列表项 -->
+        <view class="item-list">
+          <view class="record-item" wx:for="{{item.items}}" wx:key="id">
+            <view class="time">{{item.time}}</view>
+            <view class="content">{{item.content}}</view>
+          </view>
+        </view>
+      </block>
+    </view>
+  </scroll-view>
+</view>

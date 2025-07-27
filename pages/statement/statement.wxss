@@ -1,0 +1,57 @@
+/* 页面的wxss */
+.container {
+  height: 100vh;
+  box-sizing: border-box;
+  padding-top: 0;
+}
+
+/* 吸顶元素样式 */
+.sticky-bar {
+  position: fixed; /* 固定在顶部 */
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 40px;
+  line-height: 40px;
+  background: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  padding-left: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* 增加阴影区分层级 */
+  z-index: 10; /* 确保在列表上方 */
+}
+
+/* 滚动容器 */
+.record-scroll {
+  height: 100%;
+  padding-top: 40px; /* 预留吸顶元素的高度，避免内容被遮挡 */
+  box-sizing: border-box;
+}
+
+/* 年份标题样式 */
+.year-title {
+  height: 40px;
+  line-height: 40px;
+  padding-left: 16px;
+  background: #f5f5f5;
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+/* 列表项样式 */
+.item-list {
+  padding: 0 16px;
+}
+.record-item {
+  padding: 12px 0;
+  border-bottom: 1px solid #eee;
+}
+.record-item .time {
+  font-size: 12px;
+  color: #999;
+}
+.record-item .content {
+  margin-top: 4px;
+  font-size: 14px;
+}
