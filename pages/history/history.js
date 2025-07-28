@@ -1,9 +1,19 @@
 // pages/history/history.js
+import { getTotalInfo, getHistory } from "../../api/room";
+const app = getApp();
 Page({
   /**
    * 页面的初始数据
    */
   data: {
+    totalInfo: {
+      totalScore: 0,
+      totalWin: 0,
+      totalLose: 0,
+      totalTime: 0,
+      winRate: 0,
+    },
+    userInfo: app.globalData.userInfo,
     slideButtons: [
       {
         text: "总分排行",
@@ -18,8 +28,44 @@ Page({
     ],
     showRank: false,
     rankButtons: [{ text: "关闭" }, { text: "转发给好友" }],
+    groupedRecords: [],
   },
-  onLoad(options) {},
+  onLoad(options) {
+    getTotalInfo().then((res) => {
+      this.setData({
+        totalInfo: res,
+      });
+    });
+    getHistory().then((res) => {
+      this.groupByYear(res);
+    });
+  },
+  groupByYear(rawRecords) {
+    if (!rawRecords && rawRecords.length == 0) {
+      return;
+    }
+    const groupMap = {};
+
+    // 遍历原始数据，按年份归类
+    rawRecords.forEach((record) => {
+      const date = new Date(record.createdAt);
+      const year = date.getFullYear(); // 提取年份（如2023-03-15 → 2023）
+      if (!groupMap[year]) {
+        groupMap[year] = [];
+      }
+      groupMap[year].push(record);
+    });
+
+    // 转换为数组并按年份倒序排列（最新年份在前）
+    const groupedRecords = Object.keys(groupMap)
+      .sort((a, b) => b - a) // 降序排列
+      .map((year) => ({
+        year,
+        items: groupMap[year],
+      }));
+    console.log(groupedRecords);
+    this.setData({ groupedRecords });
+  },
   slideButtonTap(e) {
     console.log(e);
     const index = e.detail.index;

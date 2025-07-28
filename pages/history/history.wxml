@@ -1,41 +1,40 @@
 <!--pages/history/history.wxml-->
 <view>
   <view class="history-header">
-    <image class="cu-avatar round xl" src="https://image.meiye.art/pic_1628404025424"></image>
+    <image class="cu-avatar round xl" src="{{userInfo.avatar}}"></image>
     <view class="detail">
       <view class="flex-sub flex justify-between align-center text-lg">
-        <view>微信用户678</view>
-        <view class="text-bold text-green">-674</view>
+        <view>{{userInfo.nickname}}</view>
+        <view class="text-bold text-green">{{totalInfo.totalScore}}</view>
       </view>
       <view class="flex-sub flex justify-between align-center text-gray">
-        <view>赢：2</view>
-        <view>输：2</view>
-        <view>胜率：50%</view>
+        <view>赢：{{totalInfo.totalWin}}</view>
+        <view>输：{{totalInfo.totalLose}}</view>
+        <view>胜率：{{totalInfo.winRate}}%</view>
       </view>
     </view>
   </view>
   <scroll-view class="history-list" scroll-y>
     <view class="history-container">
 
-      <!-- todo 吸顶 -->
-      <view class="history-item year">2024</view>
+      <block wx:for="{{groupedRecords}}" wx:key="year">
+        <!-- todo 吸顶 -->
+        <view class="history-item year">{{item.year}}</view>
 
-      <!-- todo 左滑删除 -->
-      <mp-slideview wx:for="{{10}}" buttons="{{slideButtons}}" bindbuttontap="slideButtonTap">
-        <view class="history-item">
-          <view class="info margin-bottom-sm">
-            <view class="room">12-25 14:20 房号:18ih</view>
-            <view class="type bg-orange">赢</view>
-            <view class="amount text-price">666</view>
+        <!-- todo 左滑删除 -->
+        <mp-slideview wx:for="{{item.items}}" wx:for-item="record" wx:key="id" buttons="{{slideButtons}}" bindbuttontap="slideButtonTap">
+          <view class="history-item">
+            <view class="info margin-bottom-sm">
+              <view class="room">12-25 14:20 房号:{{record.roomNo}}</view>
+              <view class="type {{record.score >=0 ? 'bg-orange' : 'bg-green'}}">{{record.score >=0 ? '赢' : '输'}}</view>
+              <view class="amount text-price">{{record.score}}</view>
+            </view>
+            <view>
+              <view class="text-sm padding-tb-xs" wx:for="{{record.items}}" wx:for-item="player" wx:key="index">和{{player.nickname}}({{player.score}}-茶{{player.teaScore}})</view>
+            </view>
           </view>
-          <view>
-            <view class="text-sm padding-tb-xs">和微信用户629(50000-茶0)</view>
-            <view class="text-sm padding-tb-xs">和微信用户629(50000-茶0)</view>
-            <view class="text-sm padding-tb-xs">和微信用户629(50000-茶0)</view>
-            <view class="text-sm padding-tb-xs">和微信用户629(50000-茶0)</view>
-          </view>
-        </view>
-      </mp-slideview>
+        </mp-slideview>
+      </block>
     </view>
   </scroll-view>
 
