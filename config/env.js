@@ -1,9 +1,9 @@
 // env.js
 const envConfig = {
   development: {
-    host: "192.168.3.6",
+    host: "192.168.3.41",
     port: "8080",
-    apiBaseUrl: "http://192.168.3.6:8080/api",
+    apiBaseUrl: "http://192.168.3.41:8080/api",
     // 可以添加其他开发环境的配置
   },
   production: {

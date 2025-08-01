@@ -1,66 +1,46 @@
 // pages/record/record.js
+import { getRecords } from "../../api/room";
+const app = getApp();
 Page({
-
   /**
    * 页面的初始数据
    */
   data: {
-
+    items: [],
+    currentPage: 1,
+    pageSize: 10,
+    hasMore: true,
+    isLoading: false,
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
   onLoad(options) {
-
+    this.loadMoreData();
   },
+  loadMoreData() {
+    const { currentPage, pageSize, isLoading, hasMore } = this.data;
+    // 防止重复加载和没有更多数据时继续加载
+    if (isLoading || !hasMore) {
+      return;
+    }
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady() {
+    this.setData({
+      isLoading: true,
+    });
 
+    getRecords({ page: currentPage, pageSize: pageSize }).then((res) => {
+      const newItems = this.data.items.concat(res.data);
+      this.setData({
+        items: newItems,
+        currentPage: currentPage + 1,
+        hasMore: res.hasMore,
+        isLoading: false,
+      });
+    });
   },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload() {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh() {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
   onReachBottom() {
-
+    console.log("to bottom");
+    if (!this.data.hasMore || this.data.isLoading) {
+      return;
+    }
+    this.loadMoreData();
   },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage() {
-
-  }
-})
+});

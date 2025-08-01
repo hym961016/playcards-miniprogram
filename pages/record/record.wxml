@@ -1,25 +1,42 @@
 <!--pages/record/record.wxml-->
 <view>
-  <view class="record-header bg-white shadow">
-    <view class="record-l">
-      <image class="cu-avatar round xl" src="https://image.meiye.art/pic_1628404025424"></image>
-    </view>
-    <view class="record-r">
-      <view class="room">
-        <view class="nickname">微信用户659</view>
-        <view class="number">房号：uudn</view>
+  <view class="fix-header">
+    <view class="record-header bg-white shadow">
+      <view class="record-l">
+        <image class="cu-avatar round xl" src="https://image.meiye.art/pic_1628404025424"></image>
       </view>
-      <view class="score">
-        <view class="text-green">输/赢：-500</view>
-        <view class="text-green">茶饭：18</view>
-        <view class="text-green">结后：-518</view>
+      <view class="record-r">
+        <view class="room">
+          <view class="nickname">微信用户659</view>
+          <view class="number">房号：uudn</view>
+        </view>
+        <view class="score">
+          <view class="text-green">输/赢：-500</view>
+          <view class="text-green">茶饭：18</view>
+          <view class="text-green">结后：-518</view>
+        </view>
+        <view class="date">日期：2025-07-26 10:38:50</view>
       </view>
-      <view class="date">日期：2025-07-26 10:38:50</view>
     </view>
+    <view style="height: 5rpx;background-color: #82e968;"></view>
   </view>
-  <scroll-view class="record-list" scroll-y>
+
+  <scroll-view class="record-list" scroll-y bindscrolltolower="onReachBottom">
     <view class="record-container">
-      <view class="record-item" wx:for="{{10}}"></view>
+      <view class="record-date">15 : 55</view>
+      <view class="record-info">微信信用户345 退出了房间</view>
+      <view class="record-date">15 : 55</view>
+      <view class="record-item" wx:for="{{items}}">
+        <view class="left"><text class="text-blue">微信信用户345</text>记分给<text class="text-blue">微信用户678</text></view>
+        <view class="right">
+          <view class="score text-price">90</view>
+          <view class="tea">茶水-<text class="text-price">3</text></view>
+        </view>
+      </view>
+      <mp-loading type="circle" show="{{isLoading}}" tips="正在加载" />
+      <view class="weui-loadmore weui-loadmore_line" wx:if="{{!hasMore && items.length > 0}}">
+        <view class="weui-loadmore__tips weui-loadmore__tips_in-line" style="background-color: #eaecee;">数据已加载完毕</view>
+      </view>
     </view>
   </scroll-view>
 </view>

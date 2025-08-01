@@ -84,6 +84,7 @@
 .rank-list .rank-item {
   display: flex;
   align-items: center;
+  margin: 10rpx 0;
 }
 
 .rank-list .rank-item .icon {

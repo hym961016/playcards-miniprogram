@@ -1,3 +1,6 @@
 {
-  "usingComponents": {}
+  "usingComponents": {
+    "mp-loading": "weui-miniprogram/loading/loading"
+  },
+  "disableScroll": true
 }

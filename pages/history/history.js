@@ -29,6 +29,28 @@ Page({
     showRank: false,
     rankButtons: [{ text: "关闭" }, { text: "转发给好友" }],
     groupedRecords: [],
+    rankData: [
+      {
+        id: 1,
+        nickname: "微信用户8934",
+        score: 1000,
+      },
+      {
+        id: 2,
+        nickname: "微信用户8934",
+        score: 1000,
+      },
+      {
+        id: 3,
+        nickname: "微信用户8934",
+        score: -200,
+      },
+      {
+        id: 4,
+        nickname: "微信用户8934",
+        score: -300,
+      },
+    ],
   },
   onLoad(options) {
     getTotalInfo().then((res) => {
@@ -98,5 +120,19 @@ Page({
         break;
     }
   },
-  rankButtonTap(e) {},
+  rankButtonTap(e) {
+    console.log(e);
+    const index = e.detail.index;
+    if (index === 0) {
+      this.setData({
+        showRank: false,
+      });
+    } else if (index === 1) {
+    }
+  },
+  closeRankDialog() {
+    this.setData({
+      showRank: false,
+    });
+  },
 });

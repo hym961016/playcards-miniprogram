@@ -1,9 +1,17 @@
 /* pages/record/record.wxss */
+.fix-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 99;
+}
 
 .record-header {
   display: flex;
   padding: 0 30rpx;
   align-items: center;
+  height: 200rpx;
 }
 
 .record-header .record-l {
@@ -32,4 +40,60 @@
 .record-header .record-r .date {
   padding-bottom: 15rpx;
   font-size: 24rpx;
+}
+
+.record-list {
+  height: calc(100vh - 205rpx);
+  margin-top: 205rpx;
+}
+
+.record-container .record-item {
+  background-color: var(--white);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10rpx 30rpx;
+  border-bottom: 1rpx solid #f3efef;
+}
+
+.record-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.record-container .record-date {
+  display: inline-block;
+  margin: 10rpx auto;
+  font-size: 24rpx;
+  line-height: 1.4;
+  text-align: center;
+  color: gray;
+  background-color: transparent;
+}
+
+.record-container .record-info {
+  display: inline-block;
+  margin: 10rpx auto;
+  font-size: 24rpx;
+  padding: 8rpx 12rpx;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 6rpx;
+  color: var(--white);
+  max-width: 400rpx;
+  line-height: 1.4;
+}
+
+.record-container .record-item .right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.record-item .right .score {
+  font-weight: bold;
+}
+
+.record-item .right .tea {
+  font-size: 20rpx;
+  color: #c3c3c3;
 }

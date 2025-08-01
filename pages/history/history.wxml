@@ -38,20 +38,24 @@
     </view>
   </scroll-view>
 
-  <mp-dialog show="{{showRank}}" ext-class="rank-info" buttons="{{rankButtons}}">
+  <mp-dialog show="{{showRank}}" ext-class="rank-info" buttons="{{rankButtons}}" bindbuttontap="rankButtonTap">
     <view slot="title" class="rank-title">
       <image class="icon" src="../../static/images/排行榜.png" mode="widthFix" />
       <view>历史账单：uudn</view>
     </view>
     <view class="rank-list">
-      <view class="rank-item">
-        <image class="icon" src="../../static/images/ranking-1.png" mode="widthFix"></image>
+      <view class="rank-item" wx:for="{{rankData}}" wx:key="id">
+        <image class="icon" wx:if="{{index === 0}}" src="../../static/images/ranking-1.png" mode="widthFix"></image>
+        <image class="icon" wx:elif="{{index === 1}}" src="../../static/images/ranking-2.png" mode="widthFix"></image>
+        <image class="icon" wx:elif="{{index === 2}}" src="../../static/images/ranking-3.png" mode="widthFix"></image>
+        <view class="icon" wx:else>{{index+1}}</view>
         <view class="content">
           <view class="userinfo">
-            <view class="cu-avatar round sm margin-lr-xs" style="background-image:url(https://image.meiye.art/pic_1628404025424);"></view>
-            <view>微信用户765</view>
+            <image class="cu-avatar round sm margin-lr-xs" src="https://image.meiye.art/pic_1628404025424"></image>
+            <view>{{item.nickname}}</view>
           </view>
-          <view class="amount text-orange">+100000</view>
+          <view class="amount text-orange" wx:if="{{item.score>=0}}">+{{item.score}}</view>
+          <view class="amount text-green" wx:else>{{item.score}}</view>
         </view>
       </view>
     </view>
